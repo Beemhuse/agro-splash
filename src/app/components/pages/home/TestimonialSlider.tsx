@@ -45,7 +45,7 @@ const TestimonialSlider: React.FC = () => {
     <section ref={ref} className="py-12 ">
       <div className="container mx-auto px-6 text-center">
         <h2 className="text-xl font-bold text-gray-800 mb-8">What People Say About Us</h2>
-        <div className="w-2/4 m-auto">
+        <div className="xl:w-2/4 w-full m-auto">
         <Swiper
           modules={[Navigation, Pagination, EffectCube, Autoplay]}
         //   navigation

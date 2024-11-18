@@ -17,8 +17,8 @@ export default function AboutSection() {
       <div className="container mx-auto flex flex-col md:flex-row items-center px-6 py-16">
         {/* Text Content */}
         <div className="md:w-1/2 text-center md:text-left">
-          <h2 className="text-4xl font-bold mb-4">About Our Organization</h2>
-          <p className="text-lg mb-6">
+          <h2 className="xl:text-4xl text-xl font-bold mb-4">About Our Organization</h2>
+          <p className="xl:text-lg text-md mb-6">
             At Agro-Splash, we believe in the transformative power of technology
             and innovation in agriculture. Our organization is dedicated to
             supporting farmers, connecting buyers, and providing sustainable

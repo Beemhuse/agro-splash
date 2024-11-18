@@ -37,10 +37,10 @@ const Slider: React.FC<HeaderSliderProps> = ({ images }) => {
             <div className="absolute inset-0 bg-black/50 z-[1]"></div>
             {/* Caption content */}
             <div className="relative h-[80vh] justify-center w-full items-center flex flex-col text-white z-[2]">
-              <div className="w-2/5 text-center">
-                <h1 className="text-4xl font-bold mb-4">{image.caption}</h1>
+              <div className="xl:w-2/5 w-full text-center">
+                <h1 className="xl:text-4xl text-xl font-bold mb-4">{image.caption}</h1>
                 <p className="text-lg font-bold mb-4 ">{image.description}</p>
-                <button className="px-6 py-2 text-lg bg-white text-black font-medium hover:bg-gray-200 transition">
+                <button className="px-6 py-2 xl:text-lg text-md bg-white text-black font-medium hover:bg-gray-200 transition">
                   Read More
                 </button>
               </div>
