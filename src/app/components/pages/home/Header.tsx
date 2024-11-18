@@ -7,7 +7,7 @@ const Header = () => {
     <header className="flex items-center justify-between p-4 bg-white shadow-md">
       <div className="flex items-center space-x-4">
         <FiMenu className="text-2xl" />
-        <h1 className="text-2xl font-bold text-green-600">Organic</h1>
+        <h1 className="text-2xl font-bold text-green-600">Agro-Splash</h1>
       </div>
       <div className="flex items-center space-x-4 w-full max-w-xl">
         <select className="border rounded px-3 py-1">
