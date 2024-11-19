@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { FiMenu, FiSearch, FiUser, FiShoppingCart, FiX } from "react-icons/fi";
 import anime from "animejs";
+import Link from "next/link";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -33,23 +34,23 @@ const Header = () => {
 
       {/* Navbar Links */}
       <nav className="hidden sm:flex items-center space-x-6">
-        <a href="#home" className="text-gray-700 hover:text-green-600">
+        <Link href="/" className="text-gray-700 hover:text-green-600">
           Home
-        </a>
-        <a href="#about" className="text-gray-700 hover:text-green-600">
+        </Link>
+        <Link href="/market-place" className="text-gray-700 hover:text-green-600">
+          Market Place
+        </Link>
+        <Link href="/about" className="text-gray-700 hover:text-green-600">
           About
-        </a>
-        <a href="#contact" className="text-gray-700 hover:text-green-600">
+        </Link>
+        <Link href="/contact" className="text-gray-700 hover:text-green-600">
           Contact Us
-        </a>
+        </Link>
       </nav>
 
       {/* Search Bar */}
       <div className="flex items-center space-x-4 w-full sm:w-auto max-w-full mt-4 sm:mt-0">
-        <select className="border rounded px-3 py-1">
-          <option>All Categories</option>
-          {/* Add more categories */}
-        </select>
+     
         <div className="relative w-full sm:w-auto">
           <input
             type="text"
@@ -100,12 +101,7 @@ const Header = () => {
                 Contact Us
               </a>
             </li>
-            <li>
-              <select className="border rounded px-3 py-1">
-                <option>All Categories</option>
-                {/* Add more categories */}
-              </select>
-            </li>
+           
           </ul>
         </div>
       )}

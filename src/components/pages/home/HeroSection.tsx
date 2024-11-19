@@ -1,9 +1,16 @@
-// components/HeroSection.tsx
+'use client';
+import useAnimeOnView from "@/hooks/useAnimeOnView";
 import React from "react";
 
 const HeroSection = () => {
+  const ref = useAnimeOnView({
+    opacity: [0, 1],
+    translateY: [-50, 0],
+    duration: 1000,
+    easing: "easeOutQuad",
+  });
   return (
-    <section className="bg-yellow-100 py-12 text-center">
+    <section ref={ref} className="bg-yellow-100 py-12 text-center">
       <div className="text-4xl font-bold">
         <span className="text-green-600">Organic</span> Foods at your{" "}
         <span className="text-gray-800">Doorsteps</span>

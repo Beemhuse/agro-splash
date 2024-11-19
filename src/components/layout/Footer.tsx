@@ -1,9 +1,17 @@
+'use client'
 import React from "react";
 import Image from "next/image";
+import useAnimeOnView from "@/hooks/useAnimeOnView";
 
 const Footer = () => {
+  const ref = useAnimeOnView({
+    opacity: [0, 1],
+    translateY: [-50, 0],
+    duration: 1000,
+    easing: "easeOutQuad",
+  });
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer ref={ref} className="bg-gray-900 text-white">
       <div className="container mx-auto px-6 py-10">
         <div className="flex flex-col md:flex-row md:justify-between">
           {/* Logo and About Section */}
