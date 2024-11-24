@@ -1,13 +1,17 @@
-import FeatureSection from '@/components/pages/home/FeaturesSection'
-import HeroSection from '@/components/pages/home/HeroSection'
-import React from 'react'
+// import HeroSection from '@/components/pages/home/HeroSection'
+import CategoriesMenu from '@/components/pages/market/CategoriesMenu'
+import SmartDeals from '@/components/pages/market/SmartDeals'
+import TopCategories from '@/components/pages/market/TopCategories'
+import TopDeals from '@/components/pages/market/TopDeals'
 
-
-export default function page({}) {
+export default function Page() {
   return (
     <section>
-        <HeroSection />
-        <FeatureSection />
+        {/* <HeroSection /> */}
+        <CategoriesMenu />
+        <SmartDeals />
+        <TopDeals />
+        <TopCategories />
 
     </section>
   )

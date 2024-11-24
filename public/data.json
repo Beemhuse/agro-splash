@@ -1,0 +1,72 @@
+{
+    "products": [
+      {
+        "id": 1,
+        "name": "Organic Fertilizer",
+        "category": "Agro Allied",
+        "price": 800,
+        "originalPrice": 1000,
+        "discount": "20% OFF",
+        "savings": 200,
+        "image": "/images/organic-fertilizer.png",
+        "description": "High-quality organic fertilizer to enhance soil productivity."
+      },
+      {
+        "id": 2,
+        "name": "Crop Protection Sprayer",
+        "category": "Agro Allied",
+        "price": 2500,
+        "originalPrice": 3200,
+        "discount": "22% OFF",
+        "savings": 700,
+        "image": "/images/sprayer.jpg",
+        "description": "Durable crop protection sprayer for effective pest control."
+      },
+      {
+        "id": 3,
+        "name": "Tractor 400X",
+        "category": "Machineries",
+        "price": 250000,
+        "originalPrice": 280000,
+        "discount": "11% OFF",
+        "savings": 30000,
+        "image": "/images/tractor.jpg",
+        "description": "Heavy-duty tractor for large-scale farming."
+      },
+      {
+        "id": 4,
+        "name": "Automatic Seeder",
+        "category": "Machineries",
+        "price": 15000,
+        "originalPrice": 18000,
+        "discount": "16% OFF",
+        "savings": 3000,
+        "image": "/images/automatic-seeder.png",
+        "description": "Efficient automatic seeder for precise planting."
+      },
+      {
+        "id": 5,
+        "name": "Fresh Mangoes (1kg)",
+        "category": "Fruits & Vegetables",
+        "price": 200,
+        "originalPrice": 250,
+        "discount": "20% OFF",
+        "savings": 50,
+        "image": "/images/mangoes.webp",
+        "description": "Sweet and juicy mangoes sourced from organic farms."
+      },
+      {
+        "id": 6,
+        "name": "Carrots (1kg)",
+        "category": "Fruits & Vegetables",
+        "price": 120,
+        "originalPrice": 150,
+        "discount": "20% OFF",
+        "savings": 30,
+        "image": "/images/carrots.webp",
+        "description": "Crisp and fresh carrots packed with nutrients."
+      }
+     
+    ]
+  }
+  

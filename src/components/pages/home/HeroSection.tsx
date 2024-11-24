@@ -1,43 +1,81 @@
-'use client';
-import useAnimeOnView from "@/hooks/useAnimeOnView";
+"use client";
+
 import React from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 const HeroSection = () => {
-  const ref = useAnimeOnView({
-    opacity: [0, 1],
-    translateY: [-50, 0],
-    duration: 1000,
-    easing: "easeOutQuad",
-  });
+  const slides = [
+    {
+      title: "Organic Farming",
+      subtitle: "Nurture Nature",
+      description:
+        "Discover the benefits of organic farming and sustainable practices for a healthier future.",
+      buttonText: "Learn More",
+      backgroundImage: "/images/organic.jpeg", // Replace with actual image path
+      buttonColor: "bg-green-600",
+    },
+    {
+      title: "Fresh Vegetables",
+      subtitle: "Direct From Farm",
+      description:
+        "Get the freshest vegetables directly from local farmers to your doorstep.",
+      buttonText: "Shop Now",
+      backgroundImage: "/images/veg.webp", // Replace with actual image path
+      buttonColor: "bg-yellow-600",
+    },
+    {
+      title: "Modern Irrigation",
+      subtitle: "Smart Solutions",
+      description:
+        "Explore modern irrigation techniques for efficient water usage and better crop yield.",
+      buttonText: "Explore",
+      backgroundImage: "/images/sprayer.jpg", // Replace with actual image path
+      buttonColor: "bg-blue-600",
+    },
+  ];
+
   return (
-    <section ref={ref} className="bg-yellow-100 py-12 text-center">
-      <div className="text-4xl font-bold">
-        <span className="text-green-600">Organic</span> Foods at your{" "}
-        <span className="text-gray-800">Doorsteps</span>
-      </div>
-      <p className="text-gray-500 mt-4">Dignissim massa diam elementum.</p>
-      <div className="mt-8 space-x-4">
-        <button className="px-6 py-2 bg-green-600 text-white rounded-full">
-          Start Shopping
-        </button>
-        <button className="px-6 py-2 bg-gray-800 text-white rounded-full">
-          Join Now
-        </button>
-      </div>
-      <div className="mt-12 flex justify-center space-x-8 text-center">
-        <div>
-          <h3 className="text-2xl font-bold">14k+</h3>
-          <p className="text-gray-600">Product Varieties</p>
-        </div>
-        <div>
-          <h3 className="text-2xl font-bold">50k+</h3>
-          <p className="text-gray-600">Happy Customers</p>
-        </div>
-        <div>
-          <h3 className="text-2xl font-bold">10+</h3>
-          <p className="text-gray-600">Store Locations</p>
-        </div>
-      </div>
+    <section className="relative w-full">
+      <Swiper
+        modules={[Navigation, Pagination, Autoplay]}
+        pagination={{ clickable: true }}
+        autoplay={{ delay: 10000, disableOnInteraction: false }}
+        loop
+        className="w-full h-[800px]"
+      >
+        {slides.map((slide, index) => (
+          <SwiperSlide key={index}>
+            <div
+              className="relative h-full flex items-center justify-between px-12 text-white"
+              style={{
+                backgroundImage: `url(${slide.backgroundImage})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            >
+              {/* Content */}
+              <div className="max-w-lg bg-black bg-opacity-50 p-8 rounded-lg">
+                <h1 className="text-5xl font-bold leading-tight mb-4">
+                  {slide.title}{" "}
+                  <span className={`text-${slide.buttonColor.replace("bg-", "")}`}>
+                    {slide.subtitle}
+                  </span>
+                </h1>
+                <p className="text-gray-200 mb-6">{slide.description}</p>
+                <button
+                  className={`${slide.buttonColor} text-white px-6 py-3 rounded-full`}
+                >
+                  {slide.buttonText}
+                </button>
+              </div>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </section>
   );
 };
