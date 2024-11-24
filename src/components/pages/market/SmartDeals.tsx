@@ -2,9 +2,22 @@
 
 import React from "react";
 import productsData from "../../../../public/data.json";
-import Image from "next/image";
+// import Image from "next/image";
+import ProductCard from "@/components/reusables/ProductCard";
+import useCartStore, { CartItem } from "@/store/cartStore";
 const SmartDeals = () => {
- 
+    const addToCart = useCartStore((state) => state.addToCart);
+
+  const handleAddToCart = ({id, name, price, quantity, image}: CartItem) => {
+    addToCart({
+      id: id,
+      name: name,
+      price: price,
+      quantity: quantity,
+      image: image,
+    });
+  };
+
 
   return (
     <section className="py-8 bg-white">
@@ -23,22 +36,9 @@ const SmartDeals = () => {
         </div>
         {/* Product Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {productsData.products.map((product) => (
-          <div key={product.id} className="bg-white shadow-md rounded-lg p-4">
-            <Image
-            height={500}
-            width={500}
-              src={product.image}
-              alt={product.name}
-              className="w-full h-48 object-contain mb-4"
-            />
-            <h2 className="text-lg font-semibold">{product.name}</h2>
-            <p className="text-sm text-gray-500">{product.category}</p>
-            <p className="text-gray-800 font-bold">{product.price}</p>
-            <p className="text-gray-500 line-through">{product.originalPrice}</p>
-            <p className="text-green-600 text-sm">Save: {product.savings}</p>
-          </div>
-        ))}
+        {productsData.products?.map((product) => (
+        <ProductCard product={product} key={product.id} addToCart={handleAddToCart}  />
+      ))}
       </div>
       </div>
     </section>

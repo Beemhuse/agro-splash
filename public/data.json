@@ -6,9 +6,11 @@
         "category": "Agro Allied",
         "price": 800,
         "originalPrice": 1000,
-        "discount": "20% OFF",
+        "discount": null,
         "savings": 200,
+        "isOutOfStock":false,
         "image": "/images/organic-fertilizer.png",
+        "rating": 3,
         "description": "High-quality organic fertilizer to enhance soil productivity."
       },
       {
@@ -17,8 +19,11 @@
         "category": "Agro Allied",
         "price": 2500,
         "originalPrice": 3200,
-        "discount": "22% OFF",
+        "discount": 22,
+        "isOutOfStock":false,
         "savings": 700,
+        "rating": 2,
+
         "image": "/images/sprayer.jpg",
         "description": "Durable crop protection sprayer for effective pest control."
       },
@@ -28,8 +33,10 @@
         "category": "Machineries",
         "price": 250000,
         "originalPrice": 280000,
-        "discount": "11% OFF",
+        "discount": 11,
         "savings": 30000,
+        "rating": 4,
+        "isOutOfStock":false,
         "image": "/images/tractor.jpg",
         "description": "Heavy-duty tractor for large-scale farming."
       },
@@ -39,8 +46,10 @@
         "category": "Machineries",
         "price": 15000,
         "originalPrice": 18000,
-        "discount": "16% OFF",
+        "discount": 16,
         "savings": 3000,
+        "rating": 5,
+        "isOutOfStock":false,
         "image": "/images/automatic-seeder.png",
         "description": "Efficient automatic seeder for precise planting."
       },
@@ -50,8 +59,11 @@
         "category": "Fruits & Vegetables",
         "price": 200,
         "originalPrice": 250,
-        "discount": "20% OFF",
+        "discount": 20,
         "savings": 50,
+        "rating": 3,
+        "isOutOfStock":false,
+
         "image": "/images/mangoes.webp",
         "description": "Sweet and juicy mangoes sourced from organic farms."
       },
@@ -61,8 +73,11 @@
         "category": "Fruits & Vegetables",
         "price": 120,
         "originalPrice": 150,
-        "discount": "20% OFF",
+        "discount": 20,
         "savings": 30,
+        "rating": 3,
+        "isOutOfStock":false,
+
         "image": "/images/carrots.webp",
         "description": "Crisp and fresh carrots packed with nutrients."
       }

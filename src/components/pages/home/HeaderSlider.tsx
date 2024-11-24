@@ -1,5 +1,5 @@
 import React from "react";
-import Slider from "../reusables/Slider";
+import Slider from "../../reusables/Slider";
 
 const HeaderSlider: React.FC = () => {
     const images = [
