@@ -10,6 +10,9 @@ export interface ICategory {
   _id: string;
   name: string; // Define the type for a category
 }
+export interface ISlug {
+  current: string; // Define the type for a category
+}
 export interface CartItem {
   _id: string;
   name: string;
@@ -32,10 +35,19 @@ export interface IPromotion {
   };
   backgroundColor: string; // Hex code for the background color
 }
-
+interface IReview {
+  _id: string;
+  comment: string;
+  rating: number; // Rating (1 to 5)
+  createdAt: string;
+  user: {
+    name: string;
+  };
+}
 export interface IProduct {
   _id: string;
   name: string;
+  slug: ISlug;
   category: ICategory;
   price: number;
   originalPrice?: number;
@@ -45,8 +57,10 @@ export interface IProduct {
     asset: {
       url: string; // URL of the product image
     };
-  };
+  }[];
+  additionalInfo?: string;
   isOutOfStock: boolean;
   rating: number;
   description: string;
+  review?: IReview[]
 }

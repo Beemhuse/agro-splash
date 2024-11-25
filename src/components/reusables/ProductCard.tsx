@@ -1,7 +1,9 @@
 import { IProduct } from "@/app/constants/interfaces";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { FiShoppingCart } from "react-icons/fi";
+import { IoIosStar } from "react-icons/io";
 
   interface IProps {
     product: IProduct; // Pass the entire product object
@@ -9,8 +11,10 @@ import { FiShoppingCart } from "react-icons/fi";
     handleOpenModal: () => void;
   }
 const ProductCard = ({ product, handleOpenModal }: IProps) => {
+  const {push} = useRouter()
     const {
         // _id,
+        slug,
         name,
         category,
         price,
@@ -21,9 +25,10 @@ const ProductCard = ({ product, handleOpenModal }: IProps) => {
         rating,
         // description,
       } = product;
-     
+     console.log(product)
   return (
     <div
+    onClick={()=>push(`market-place/${slug.current}`)}
       className={`relative bg-white shadow-md rounded-lg p-4 border ${
         isOutOfStock
           ? "opacity-60 border-gray-200"
@@ -68,7 +73,6 @@ const ProductCard = ({ product, handleOpenModal }: IProps) => {
           )}
         </div>
 
-        {/* Add to Cart Icon */}
         {!isOutOfStock ? (
           <button onClick={handleOpenModal} className="w-8 h-8 bg-green-500 text-white flex items-center justify-center rounded-full hover:bg-green-600 transition duration-300">
             <FiShoppingCart />
@@ -78,20 +82,20 @@ const ProductCard = ({ product, handleOpenModal }: IProps) => {
             className="w-8 h-8 bg-gray-300 text-gray-500 flex items-center justify-center rounded-full cursor-not-allowed"
             disabled
           >
-            🛒
-          </button>
+            <FiShoppingCart />
+            </button>
         )}
       </div>
 
       {/* Rating */}
       <div className="flex items-center mt-3 text-yellow-500">
         {Array.from({ length: rating }).map((_, index) => (
-          <span key={index}>⭐</span>
+          <span key={index}><IoIosStar /></span>
         ))}
         {rating < 5 &&
           Array.from({ length: 5 - rating }).map((_, index) => (
             <span key={index} className="text-gray-300">
-              ⭐
+              <IoIosStar />
             </span>
           ))}
       </div>

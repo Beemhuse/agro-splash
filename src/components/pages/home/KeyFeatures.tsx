@@ -1,21 +1,23 @@
-'use client'
+"use client";
 
 import Image from "next/image";
 import React from "react";
 import { FaTools } from "react-icons/fa";
 import { TiWeatherPartlySunny } from "react-icons/ti";
 import { MdMonitorHeart } from "react-icons/md";
+import { RiBookOpenLine, RiTeamLine } from "react-icons/ri";
 import useAnimeOnView from "@/hooks/useAnimeOnView";
 
 export default function KeyFeatures() {
-    const ref = useAnimeOnView({
-        opacity: [0, 1],
-        translateY: [-50, 0],
-        duration: 1000,
-        easing: "easeOutQuad",
-      });
+  const ref = useAnimeOnView({
+    opacity: [0, 1],
+    translateY: [-50, 0],
+    duration: 1000,
+    easing: "easeOutQuad",
+  });
+
   return (
-    <section ref={ref}  className="py-12">
+    <section ref={ref} className="py-12">
       <div className="container mx-auto px-6 text-center">
         <div className="flex items-center w-full mb-8">
           <hr className="w-full border-green-700" />
@@ -25,7 +27,7 @@ export default function KeyFeatures() {
           <hr className="w-full border-yellow-700" />
         </div>
 
-        <div className="grid md:grid-cols-2 gap-10">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
           {/* Agrotech Features */}
           <div className="p-6 bg-green-50 rounded-lg shadow-md">
             <h3 className="text-2xl font-semibold text-green-700 mb-4">
@@ -33,15 +35,15 @@ export default function KeyFeatures() {
             </h3>
             <ul className="text-left text-gray-700">
               <li className="flex items-center gap-3 mb-3">
-                <FaTools className="text-green-700 text-xl" />{" "}
+                <FaTools className="text-green-700 text-xl" />
                 <span>Smart Farming Tools</span>
               </li>
               <li className="flex items-center mb-3 gap-3">
-                <TiWeatherPartlySunny className="text-green-700 text-xl" />{" "}
+                <TiWeatherPartlySunny className="text-green-700 text-xl" />
                 <span>Weather Forecasting Tools</span>
               </li>
-              <li className="flex items-center  gap-3">
-                <MdMonitorHeart className="text-green-700 text-xl" />{" "}
+              <li className="flex items-center gap-3">
+                <MdMonitorHeart className="text-green-700 text-xl" />
                 <span>Crop Monitoring Systems</span>
               </li>
             </ul>
@@ -82,6 +84,33 @@ export default function KeyFeatures() {
                   className="h-8 w-8 mr-3"
                 />
                 <span>African Specialty Products</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Courses/Tutorials */}
+          <div className="p-6 bg-blue-50 rounded-lg shadow-md">
+            <h3 className="text-2xl font-semibold text-blue-700 mb-4">
+              Courses & Tutorials
+            </h3>
+            <ul className="text-left text-gray-700">
+              <li className="flex items-center gap-3 mb-3">
+                <RiBookOpenLine className="text-blue-700 text-xl" />
+                <span>Advanced Farming Techniques</span>
+              </li>
+              <li className="flex items-center gap-3 mb-3">
+                <RiTeamLine className="text-blue-700 text-xl" />
+                <span>Mentorship & Expert Guidance</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <Image
+                  src="/icons/tutorial.png"
+                  width={60}
+                  height={60}
+                  alt="Online Tutorials"
+                  className="h-6 w-6"
+                />
+                <span>Online Tutorials for Beginners</span>
               </li>
             </ul>
           </div>

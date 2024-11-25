@@ -6,6 +6,7 @@ export const PRODUCTS_QUERY = `*[
     publishedAt,
     slug,
     price,
+    rating,
     category-> {
       _id,
       name

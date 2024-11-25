@@ -21,6 +21,7 @@ const SmartDeals: React.FC<SmartDealsProps> = ({ products }) => {
     openModal();
   };
 
+  // const openDetail
   return (
     <section className="py-8 bg-white">
       <div className="container mx-auto px-4">
