@@ -3,7 +3,18 @@ import React from "react";
 import Image from "next/image";
 import useAnimeOnView from "@/hooks/useAnimeOnView";
 import AboutCards from "./AboutCards";
-
+import { Swiper, SwiperSlide } from "swiper/react";
+import { EffectCards, Navigation, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/effect-cards";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+const images = [
+  { src: "/images/plant.jpg", alt: "Image 1" },
+  { src: "/images/web1.jpg", alt: "Image 2" },
+  { src: "/images/plant1.jpg", alt: "Image 3" },
+  // { src: "/bg4.jpeg", alt: "Image 4" },
+];
 export default function AboutSection() {
     const ref = useAnimeOnView({
         opacity: [0, 1],
@@ -30,16 +41,28 @@ export default function AboutSection() {
           </button>
         </div>
 
-        {/* Image */}
-        <div className="md:w-1/2 mt-8 md:mt-0">
-          <Image
-            src="/bg3.jpeg" // Replace with your image path
-            alt="Support"
-            width={600}
-            height={400}
-            className="rounded-lg"
-          />
-        </div>
+        <div className="w-full md:w-1/2 mt-8 md:mt-0">
+      <Swiper
+        modules={[EffectCards, Navigation, Pagination]}
+        effect="cards"
+        grabCursor={true}
+        // navigation
+        // pagination={{ clickable: true }}
+        className="w-full h-[400px]"
+      >
+        {images.map((image, index) => (
+          <SwiperSlide key={index} className="flex justify-center items-center">
+            <Image
+              src={image.src}
+              alt={image.alt}
+              width={600}
+              height={400}
+              className="rounded-lg object-cover"
+            />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
       </div>
 <AboutCards />
     </section>

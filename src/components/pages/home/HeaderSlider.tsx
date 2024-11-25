@@ -10,7 +10,7 @@ const HeaderSlider: React.FC = () => {
           description: "Discover how Agro-Splash is empowering farmers across Africa by providing cutting-edge technology and innovative solutions to enhance productivity and ensure food security."
         },
         {
-          src: "/bg2.jpg",
+          src: "/images/bg2.jpg",
           alt: "Group of African entrepreneurs trading agro-products at a vibrant marketplace",
           caption: "Inspiring the Future",
           description: "Agro-Splash is bridging the gap between rural farmers and global buyers, creating a sustainable marketplace that celebrates the richness of African agriculture."

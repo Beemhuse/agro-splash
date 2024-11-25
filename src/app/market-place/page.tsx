@@ -20,7 +20,6 @@ export default async function Page() {
 console.log(products)
   return (
     <section>
-        {/* <HeroSection /> */}
         <CategoriesMenu categories={categories} />
         <SmartDeals products={products} />
         <TopDeals promotions={promotions} />

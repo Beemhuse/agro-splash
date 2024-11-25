@@ -15,7 +15,7 @@ const HeroSection = () => {
       description:
         "Discover the benefits of organic farming and sustainable practices for a healthier future.",
       buttonText: "Learn More",
-      backgroundImage: "/images/organic.jpeg", // Replace with actual image path
+      backgroundImage: "/images/bg2.jpg", // Replace with actual image path
       buttonColor: "bg-green-600",
     },
     {
@@ -33,8 +33,8 @@ const HeroSection = () => {
       description:
         "Explore modern irrigation techniques for efficient water usage and better crop yield.",
       buttonText: "Explore",
-      backgroundImage: "/images/sprayer.jpg", // Replace with actual image path
-      buttonColor: "bg-blue-600",
+      backgroundImage: "/images/plant.jpg", // Replace with actual image path
+      buttonColor: "bg-green-600",
     },
   ];
 
@@ -54,7 +54,7 @@ const HeroSection = () => {
               style={{
                 backgroundImage: `url(${slide.backgroundImage})`,
                 backgroundSize: "cover",
-                backgroundPosition: "center",
+                backgroundPosition: "bottom",
               }}
             >
               {/* Content */}
