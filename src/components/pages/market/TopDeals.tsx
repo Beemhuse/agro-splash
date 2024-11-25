@@ -6,40 +6,15 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-// import Image from "next/image";
+import { IPromotion } from "@/app/constants/interfaces";
 
-const TopDeals = () => {
-  const agroDeals = [
-    {
-      brand: "FERTILIZER",
-      description: "UP TO 50% OFF",
-      logo: "/images/fertilizer-logo.png", // Replace with actual logo path
-      productImage: "/images/fertilizer-product.png", // Replace with actual product image
-      backgroundColor: "bg-green-100",
-    },
-    {
-      brand: "SEEDS",
-      description: "UP TO 40% OFF",
-      logo: "/images/seedling.jpg", // Replace with actual logo path
-      productImage: "/images/seeds-product.png", // Replace with actual product image
-      backgroundColor: "bg-yellow-100",
-    },
-    {
-      brand: "TRACTORS",
-      description: "UP TO 30% OFF",
-      logo: "/images/tractor.jpg", // Replace with actual logo path
-      productImage: "/images/tractor-product.png", // Replace with actual product image
-      backgroundColor: "bg-orange-100",
-    },
-    {
-      brand: "CROP SPRAYERS",
-      description: "UP TO 20% OFF",
-      logo: "/images/sprayer.jpg", // Replace with actual logo path
-      productImage: "/images/sprayers-product.png", // Replace with actual product image
-      backgroundColor: "bg-blue-100",
-    },
-  ];
+interface IProps {
+    promotions: IPromotion[];
+}
 
+const TopDeals = ({promotions}: IProps) => {
+
+console.log(promotions)
   return (
     <section className="py-8">
       <div className="container mx-auto px-4">
@@ -67,10 +42,13 @@ const TopDeals = () => {
           }}
           className="w-full"
         >
-        {agroDeals.map((deal, index) => (
+        {promotions?.map((deal, index) => (
   <SwiperSlide key={index}>
     <div
-      className={`p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 flex items-center ${deal.backgroundColor}`}
+      className={`p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 flex items-center `}
+      style={{
+        backgroundColor: deal.backgroundColor
+      }}
     >
       {/* Logo and Text */}
       <div className="w-1/2 pr-4">
@@ -85,7 +63,7 @@ const TopDeals = () => {
       <div
         className="w-1/2 h-48 bg-cover bg-center rounded-lg"
         style={{
-          backgroundImage: `url(${deal.logo})`,
+          backgroundImage: `url(${deal.image.asset.url})`,
         }}
       ></div>
     </div>

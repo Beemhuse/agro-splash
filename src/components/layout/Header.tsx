@@ -1,12 +1,15 @@
-'use client'
+"use client";
 // components/Header.tsx
 import React, { useState } from "react";
 import { FiMenu, FiSearch, FiUser, FiShoppingCart, FiX } from "react-icons/fi";
 import anime from "animejs";
 import Link from "next/link";
+import useCartStore from "@/store/cartStore";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const cart = useCartStore((state) => state.cart);
+  const cartQuantity = cart?.reduce((total, item) => total + item.quantity, 0);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -37,7 +40,10 @@ const Header = () => {
         <Link href="/" className="text-gray-700 hover:text-green-600">
           Home
         </Link>
-        <Link href="/market-place" className="text-gray-700 hover:text-green-600">
+        <Link
+          href="/market-place"
+          className="text-gray-700 hover:text-green-600"
+        >
           Market Place
         </Link>
         <Link href="/about" className="text-gray-700 hover:text-green-600">
@@ -50,7 +56,6 @@ const Header = () => {
 
       {/* Search Bar */}
       <div className="flex items-center space-x-4 w-full sm:w-auto max-w-full mt-4 sm:mt-0">
-     
         <div className="relative w-full sm:w-auto">
           <input
             type="text"
@@ -64,7 +69,17 @@ const Header = () => {
       {/* User and Cart */}
       <div className="flex items-center space-x-4 mt-4 sm:mt-0">
         <FiUser className="text-2xl cursor-pointer" />
-        <FiShoppingCart className="text-2xl cursor-pointer" />
+        <div
+          className="relative cursor-pointer"
+          onClick={() => (window.location.href = "/cart")}
+        >
+          <FiShoppingCart className="text-2xl" />
+          {cartQuantity > 0 && (
+            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+              {cartQuantity}
+            </span>
+          )}
+        </div>{" "}
       </div>
 
       {/* Hamburger Menu (Mobile) */}
@@ -101,7 +116,6 @@ const Header = () => {
                 Contact Us
               </a>
             </li>
-           
           </ul>
         </div>
       )}

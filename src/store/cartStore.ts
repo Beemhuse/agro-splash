@@ -1,19 +1,14 @@
+import { CartItem } from "@/app/constants/interfaces";
 import {create} from "zustand";
 import { persist } from "zustand/middleware";
 
-export interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-  image: string;
-}
+
 
 interface CartState {
   cart: CartItem[];
   addToCart: (item: CartItem) => void;
-  removeFromCart: (id: number) => void;
-  updateQuantity: (id: number, quantity: number) => void;
+  removeFromCart: (id: string) => void;
+  updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
 }
 
@@ -25,14 +20,14 @@ const useCartStore = create(
       addToCart: (item) =>
         set((state) => {
           const existingItem = state.cart.find(
-            (cartItem) => cartItem.id === item.id
+            (cartItem) => cartItem._id === item._id
           );
 
           if (existingItem) {
             // If item already exists, update the quantity
             return {
               cart: state.cart.map((cartItem) =>
-                cartItem.id === item.id
+                cartItem._id === item._id
                   ? { ...cartItem, quantity: cartItem.quantity + item.quantity }
                   : cartItem
               ),
@@ -45,13 +40,13 @@ const useCartStore = create(
 
       removeFromCart: (id) =>
         set((state) => ({
-          cart: state.cart.filter((cartItem) => cartItem.id !== id),
+          cart: state.cart.filter((cartItem) => cartItem._id !== id),
         })),
 
       updateQuantity: (id, quantity) =>
         set((state) => ({
           cart: state.cart.map((cartItem) =>
-            cartItem.id === id ? { ...cartItem, quantity } : cartItem
+            cartItem._id === id ? { ...cartItem, quantity } : cartItem
           ),
         })),
 

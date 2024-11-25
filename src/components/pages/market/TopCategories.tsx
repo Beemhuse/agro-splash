@@ -3,28 +3,20 @@
 import Image from "next/image";
 import React from "react";
 
-const TopCategories = () => {
-  const categories = [
+interface Category {
+  name: string; // Define the type for a category
+  image: {
+    asset: {
+      url: string; // URL of the product image
+    };
+  };
+}
 
-    {
-      name: "Fruits & Vegetables",
-      image: "/images/veg.webp", // Replace with actual image path
-    },
-    {
-      name: "Machineries",
-      image: "/images/tractor.jpg", // Replace with actual image path
-    },
-    {
-      name: "Organic Products",
-      image: "/images/organic.jpeg", // Replace with actual image path
-    },
-    {
-      name: "Seeds",
-      image: "/images/seedling.jpg", // Replace with actual image path
-    },
-   
-  ];
-
+interface CategoriesMenuProps {
+  topCategories: Category[]; // Define the type for the categories prop
+}
+const TopCategories = ({ topCategories }: CategoriesMenuProps) => {
+  console.log(topCategories);
   return (
     <section className="py-8">
       <div className="container mx-auto px-4">
@@ -43,7 +35,7 @@ const TopCategories = () => {
 
         {/* Categories */}
         <div className="flex justify-center gap-8 overflow-x-auto hide-scrollbar">
-          {categories.map((category, index) => (
+          {topCategories?.map((category, index) => (
             <div
               key={index}
               className="flex flex-col items-center space-y-2 group"
@@ -52,7 +44,7 @@ const TopCategories = () => {
                 <Image
                   width={500}
                   height={500}
-                  src={category.image}
+                  src={category.image.asset.url}
                   alt={category.name}
                   className="w-full h-full object-cover rounded-full"
                 />

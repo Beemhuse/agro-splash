@@ -1,49 +1,27 @@
-import { CartItem } from "@/store/cartStore";
+import { IProduct } from "@/app/constants/interfaces";
 import Image from "next/image";
 import React from "react";
 import { FiShoppingCart } from "react-icons/fi";
-interface IProduct {
-    id: number;
-    name: string;
-    category: string;
-    price: number;
-    originalPrice?: number;
-    discount?: number|null;
-    savings: number;
-    image: string;
-    isOutOfStock: boolean;
-    rating: number;
-    description: string;
-  }
-  
+
   interface IProps {
     product: IProduct; // Pass the entire product object
-    addToCart: (product: CartItem) => void;
+    // addToCart: (product: CartItem) => void;
+    handleOpenModal: () => void;
   }
-const ProductCard = ({ product, addToCart }: IProps) => {
+const ProductCard = ({ product, handleOpenModal }: IProps) => {
     const {
-        id,
+        // _id,
         name,
         category,
         price,
         originalPrice,
         discount,
-        // savings,
         image,
         isOutOfStock,
         rating,
         // description,
       } = product;
-      const handleAddToCart = () => {
-        const cartItem: CartItem = {
-          id,
-          name,
-          price,
-          quantity: 1, // Default quantity for adding to cart
-          image,
-        };
-        addToCart(cartItem);
-      };
+     
   return (
     <div
       className={`relative bg-white shadow-md rounded-lg p-4 border ${
@@ -67,7 +45,7 @@ const ProductCard = ({ product, addToCart }: IProps) => {
       {/* Product Image */}
       <div className="flex items-center justify-center h-48 mb-4">
         <Image
-          src={image}
+          src={image.asset.url}
           alt={name}
           height={500}
           width={500}
@@ -77,7 +55,7 @@ const ProductCard = ({ product, addToCart }: IProps) => {
 
       {/* Product Details */}
       <h2 className="text-lg font-semibold mb-1">{name}</h2>
-      <p className="text-sm text-gray-500 mb-2">{category}</p>
+      <p className="text-sm text-gray-500 mb-2">{category.name}</p>
 
       <div className="flex items-center justify-between">
         {/* Price */}
@@ -92,7 +70,7 @@ const ProductCard = ({ product, addToCart }: IProps) => {
 
         {/* Add to Cart Icon */}
         {!isOutOfStock ? (
-          <button onClick={handleAddToCart} className="w-8 h-8 bg-green-500 text-white flex items-center justify-center rounded-full hover:bg-green-600 transition duration-300">
+          <button onClick={handleOpenModal} className="w-8 h-8 bg-green-500 text-white flex items-center justify-center rounded-full hover:bg-green-600 transition duration-300">
             <FiShoppingCart />
           </button>
         ) : (

@@ -1,23 +1,25 @@
 "use client";
 
-import React from "react";
-import productsData from "../../../../public/data.json";
-// import Image from "next/image";
+import React, { useState } from "react";
 import ProductCard from "@/components/reusables/ProductCard";
-import useCartStore, { CartItem } from "@/store/cartStore";
-const SmartDeals = () => {
-    const addToCart = useCartStore((state) => state.addToCart);
+import useModal from "@/hooks/useModal";
+import ProductDetailsModal from "@/components/modals/ProductDetailsModal";
+import { IProduct } from "@/app/constants/interfaces";
 
-  const handleAddToCart = ({id, name, price, quantity, image}: CartItem) => {
-    addToCart({
-      id: id,
-      name: name,
-      price: price,
-      quantity: quantity,
-      image: image,
-    });
+interface SmartDealsProps {
+  products: IProduct[]; // Type definition for the products prop
+}
+
+const SmartDeals: React.FC<SmartDealsProps> = ({ products }) => {
+//   const addToCart = useCartStore((state) => state.addToCart);
+  const { isOpen, openModal, closeModal } = useModal();
+  const [modalData, setModalData] = useState<IProduct | null>(null);
+
+
+  const handleModalOpen = (product: IProduct) => {
+    setModalData(product);
+    openModal();
   };
-
 
   return (
     <section className="py-8 bg-white">
@@ -34,12 +36,27 @@ const SmartDeals = () => {
             View All &gt;
           </a>
         </div>
+
         {/* Product Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {productsData.products?.map((product) => (
-        <ProductCard product={product} key={product.id} addToCart={handleAddToCart}  />
-      ))}
-      </div>
+          {products?.map((product) => (
+            <ProductCard
+              key={product._id}
+              handleOpenModal={() => handleModalOpen(product)}
+              product={product}
+            //   addToCart={() => handleAddToCart(product)}
+            />
+          ))}
+        </div>
+
+        {/* Product Details Modal */}
+        {isOpen && modalData && (
+          <ProductDetailsModal
+            isOpen={isOpen}
+            onClose={closeModal}
+            product={modalData}
+          />
+        )}
       </div>
     </section>
   );
