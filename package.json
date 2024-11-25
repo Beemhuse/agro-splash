@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@portabletext/react": "^3.1.0",
     "@sanity/image-url": "^1.1.0",
+    "@sanity/ui": "^2.8.25",
     "@splidejs/react-splide": "^0.7.12",
     "animejs": "^3.2.2",
     "next": "15.0.3",
