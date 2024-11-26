@@ -47,7 +47,7 @@ const Header = () => {
           Market Place
         </Link>
         <Link
-          href="/market-place"
+          href="/courses"
           className="text-gray-700 hover:text-green-600"
         >
           Courses

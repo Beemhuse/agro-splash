@@ -18,6 +18,21 @@ export const PRODUCTS_QUERY = `*[
     }
   }`;
   
+export const COURSES_QUERY = `*[
+    _type == "course" && defined(slug.current)
+  ] | order(_createdAt desc)[0...12] {
+    _id,
+    title,
+    slug,
+    price,
+    rating,
+    thumbnail{
+      asset-> {
+        url
+      }
+    }
+  }`;
+  
   export const CATEGORIES_QUERY = `*[
     _type == "category"
   ] | order(_createdAt asc) {

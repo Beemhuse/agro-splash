@@ -35,6 +35,19 @@ export interface IPromotion {
   };
   backgroundColor: string; // Hex code for the background color
 }
+export interface ICourse {
+  _id: string; // Unique identifier for the promotion
+  title: string; // Brand name
+  slug: ISlug; // Description of the promotion
+  price: string; // Description of the promotion
+  rating: number; // Description of the promotion
+  thumbnail: {
+    asset: {
+      url: string; // URL of the product image
+    };
+  };
+  backgroundColor: string; // Hex code for the background color
+}
 interface IReview {
   _id: string;
   comment: string;
