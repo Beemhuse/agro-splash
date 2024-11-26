@@ -1,6 +1,5 @@
 import { ICourse } from "@/app/constants/interfaces";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import React from "react";
 // import { FiShoppingCart } from "react-icons/fi";
 import { IoIosStar } from "react-icons/io";
@@ -11,12 +10,11 @@ import { IoIosStar } from "react-icons/io";
     // handleOpenModal: () => void;
   }
 const CourseCard = ({ course }: IProps) => {
-  const {push} = useRouter()
     const {
         // _id,
-        slug,
+        // slug,
         title,
-        
+        videoLink,
         price,
         thumbnail,
         rating,
@@ -25,8 +23,8 @@ const CourseCard = ({ course }: IProps) => {
      console.log(course)
   return (
     <div
-    onClick={()=>push(`market-place/${slug.current}`)}
-      className={`relative bg-white shadow-md rounded-lg p-4 border ${
+    onClick={() => window.open(videoLink, "_blank")}
+    className={`relative cursor-pointer bg-white shadow-md rounded-lg p-4 border ${
         // isOutOfStock
         //   ? "opacity-60 border-gray-200"
            "border-gray-100 hover:shadow-lg hover:border-green-400"

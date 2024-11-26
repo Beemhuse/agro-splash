@@ -25,6 +25,7 @@ export const COURSES_QUERY = `*[
     title,
     slug,
     price,
+    videoLink,
     rating,
     thumbnail{
       asset-> {

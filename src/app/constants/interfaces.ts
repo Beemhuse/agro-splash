@@ -38,6 +38,7 @@ export interface IPromotion {
 export interface ICourse {
   _id: string; // Unique identifier for the promotion
   title: string; // Brand name
+  videoLink: string;
   slug: ISlug; // Description of the promotion
   price: string; // Description of the promotion
   rating: number; // Description of the promotion
