@@ -40,7 +40,7 @@ export async function generateMetadata({
 const Page = async ({
   params,
 }: {
-  params: Awaited<ReturnType<typeof generateStaticParams>>[number];
+  params: { slug: string };
 }) => {
   const product: IProduct = await client.fetch(
     `*[_type == "product" && slug.current == $slug][0] {
