@@ -38,10 +38,12 @@ export async function generateMetadata({
 
 // Page Component
 const Page = async ({
-  params,
+  params: unresolvedParams,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) => {
+  const params = await unresolvedParams; // Resolve params before using
+  console.log(params); // Confirm params is resolved
   const product: IProduct = await client.fetch(
     `*[_type == "product" && slug.current == $slug][0] {
       _id,
