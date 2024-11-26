@@ -4,7 +4,6 @@ import { IProduct } from "@/app/constants/interfaces";
 import ImageDisplay from "@/components/pages/market/ImageDisplay";
 import ProductTabs from "@/components/pages/market/ProductTabs";
 
-
 // Fetch single product data based on slug
 export async function generateStaticParams() {
   const products = await client.fetch(
@@ -21,7 +20,9 @@ export async function generateStaticParams() {
 // Fetch metadata for SEO
 export async function generateMetadata({
   params,
-}: { params: { slug: string } }): Promise<Metadata> {
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
   const product = await client.fetch(
     `*[_type == "product" && slug.current == $slug][0] {
       name, description
@@ -36,7 +37,11 @@ export async function generateMetadata({
 }
 
 // Page Component
-const Page = async ({ params }: { params: { slug: string } }) => {
+const Page = async ({
+  params,
+}: {
+  params: Awaited<ReturnType<typeof generateStaticParams>>[number];
+}) => {
   const product: IProduct = await client.fetch(
     `*[_type == "product" && slug.current == $slug][0] {
       _id,
@@ -71,6 +76,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
   if (!product) {
     return <p className="text-center text-red-500">Product not found.</p>;
   }
+
   return (
     <section className="py-12 bg-gray-50">
       <div className="container mx-auto px-6">
