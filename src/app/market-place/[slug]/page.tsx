@@ -4,11 +4,6 @@ import { IProduct } from "@/app/constants/interfaces";
 import ImageDisplay from "@/components/pages/market/ImageDisplay";
 import ProductTabs from "@/components/pages/market/ProductTabs";
 
-interface ProductDetailsProps {
-  params: {
-    slug: string;
-  };
-}
 
 // Fetch single product data based on slug
 export async function generateStaticParams() {
@@ -26,7 +21,7 @@ export async function generateStaticParams() {
 // Fetch metadata for SEO
 export async function generateMetadata({
   params,
-}: ProductDetailsProps): Promise<Metadata> {
+}: { params: { slug: string } }): Promise<Metadata> {
   const product = await client.fetch(
     `*[_type == "product" && slug.current == $slug][0] {
       name, description
@@ -41,7 +36,7 @@ export async function generateMetadata({
 }
 
 // Page Component
-const ProductDetailsPage = async ({ params }: ProductDetailsProps) => {
+const Page = async ({ params }: { params: { slug: string } }) => {
   const product: IProduct = await client.fetch(
     `*[_type == "product" && slug.current == $slug][0] {
       _id,
@@ -52,7 +47,7 @@ const ProductDetailsPage = async ({ params }: ProductDetailsProps) => {
       additionalInfo,
       discount,
       savings,
-      image[]{
+      image[] {
         asset-> {
           url
         }
@@ -61,14 +56,14 @@ const ProductDetailsPage = async ({ params }: ProductDetailsProps) => {
       rating,
       description,
       review[]-> {
-    _id,
-    comment,
-    rating,
-    createdAt,
-    user-> {
-      name
-    }
-  }
+        _id,
+        comment,
+        rating,
+        createdAt,
+        user-> {
+          name
+        }
+      }
     }`,
     { slug: params.slug }
   );
@@ -76,7 +71,6 @@ const ProductDetailsPage = async ({ params }: ProductDetailsProps) => {
   if (!product) {
     return <p className="text-center text-red-500">Product not found.</p>;
   }
-  console.log(product);
   return (
     <section className="py-12 bg-gray-50">
       <div className="container mx-auto px-6">
@@ -89,4 +83,4 @@ const ProductDetailsPage = async ({ params }: ProductDetailsProps) => {
   );
 };
 
-export default ProductDetailsPage;
+export default Page;
