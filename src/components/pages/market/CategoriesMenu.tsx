@@ -10,12 +10,20 @@ interface Category {
   
   interface CategoriesMenuProps {
     categories: Category[]; // Define the type for the categories prop
+    onCategorySelect: (categoryName: string) => void;
+
   }
-const CategoriesMenu = ({categories}: CategoriesMenuProps) => {
-  const [activeCategory, setActiveCategory] = useState<string>("");
+const CategoriesMenu = ({categories, onCategorySelect}: CategoriesMenuProps) => {
+  const [activeCategory, setActiveCategory] = useState<string>("All");
+
+  const handleCategoryClick = (categoryName: string) => {
+    setActiveCategory(categoryName);
+    onCategorySelect(categoryName);
+  };
+
   return (
     <div className="flex items-center justify-center overflow-x-auto hide-scrollbar gap-4 py-4 px-6 bg-white shadow rounded-lg">
-      {categories.map((category) => (
+      {categories?.map((category) => (
         <button
           key={category.name}
           className={`px-4 py-2 flex gap-2 items-center rounded-full text-sm font-medium whitespace-nowrap ${
@@ -23,7 +31,7 @@ const CategoriesMenu = ({categories}: CategoriesMenuProps) => {
               ? "bg-green-500 text-white"
               : "bg-gray-100 text-gray-700 hover:bg-gray-200"
           } transition-colors duration-300`}
-          onClick={() => setActiveCategory(category?.name)}
+          onClick={() => handleCategoryClick(category?.name)}
         >
           {category?.name} <FaAngleDown />
         </button>

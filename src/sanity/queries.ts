@@ -11,7 +11,7 @@ export const PRODUCTS_QUERY = `*[
       _id,
       name
     },
-    image {
+    image[] {
       asset-> {
         url
       }

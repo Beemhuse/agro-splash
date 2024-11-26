@@ -50,7 +50,7 @@ const ProductCard = ({ product, handleOpenModal }: IProps) => {
       {/* Product Image */}
       <div className="flex items-center justify-center h-48 mb-4">
         <Image
-          src={image.asset.url}
+          src={image[0]?.asset?.url}
           alt={name}
           height={500}
           width={500}

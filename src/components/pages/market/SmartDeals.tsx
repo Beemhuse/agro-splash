@@ -5,16 +5,28 @@ import ProductCard from "@/components/reusables/ProductCard";
 import useModal from "@/hooks/useModal";
 import ProductDetailsModal from "@/components/modals/ProductDetailsModal";
 import { IProduct } from "@/app/constants/interfaces";
+import EmptyState from "@/components/reusables/EmptyState";
 
 interface SmartDealsProps {
   products: IProduct[]; // Type definition for the products prop
+  selectedCategory: string; // Selected category from CategoriesMenu
 }
 
-const SmartDeals: React.FC<SmartDealsProps> = ({ products }) => {
-//   const addToCart = useCartStore((state) => state.addToCart);
+const SmartDeals: React.FC<SmartDealsProps> = ({
+  products,
+  selectedCategory,
+}) => {
+  //   const addToCart = useCartStore((state) => state.addToCart);
   const { isOpen, openModal, closeModal } = useModal();
   const [modalData, setModalData] = useState<IProduct | null>(null);
 
+  // Filter products by category
+  const filteredProducts =
+    selectedCategory === "All"
+      ? products
+      : products.filter(
+          (product) => product.category.name === selectedCategory
+        );
 
   const handleModalOpen = (product: IProduct) => {
     setModalData(product);
@@ -38,17 +50,19 @@ const SmartDeals: React.FC<SmartDealsProps> = ({ products }) => {
           </a>
         </div>
 
-        {/* Product Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {products?.map((product) => (
-            <ProductCard
-              key={product._id}
-              handleOpenModal={() => handleModalOpen(product)}
-              product={product}
-            //   addToCart={() => handleAddToCart(product)}
-            />
-          ))}
-        </div>
+        {filteredProducts.length === 0 ? (
+          <EmptyState />
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {filteredProducts?.map((product) => (
+              <ProductCard
+                key={product._id}
+                handleOpenModal={() => handleModalOpen(product)}
+                product={product}
+              />
+            ))}
+          </div>
+        )}
 
         {/* Product Details Modal */}
         {isOpen && modalData && (
