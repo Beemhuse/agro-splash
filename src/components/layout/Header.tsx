@@ -98,30 +98,27 @@ const Header = () => {
             <FiX className="text-2xl cursor-pointer" onClick={toggleMenu} />
           </div>
           <ul className="flex flex-col items-center space-y-4 pb-4">
-            <li>
-              <a
-                href="#home"
-                className="text-gray-700 hover:text-green-600 text-lg"
-              >
-                Home
-              </a>
-            </li>
-            <li>
-              <a
-                href="#about"
-                className="text-gray-700 hover:text-green-600 text-lg"
-              >
-                About
-              </a>
-            </li>
-            <li>
-              <a
-                href="#contact"
-                className="text-gray-700 hover:text-green-600 text-lg"
-              >
-                Contact Us
-              </a>
-            </li>
+          <Link href="/" className="text-gray-700 hover:text-green-600">
+          Home
+        </Link>
+        <Link
+          href="/market-place"
+          className="text-gray-700 hover:text-green-600"
+        >
+          Market Place
+        </Link>
+        <Link
+          href="/courses"
+          className="text-gray-700 hover:text-green-600"
+        >
+          Courses
+        </Link>
+        <Link href="/about" className="text-gray-700 hover:text-green-600">
+          About
+        </Link>
+        <Link href="/contact" className="text-gray-700 hover:text-green-600">
+          Contact Us
+        </Link>
           </ul>
         </div>
       )}
