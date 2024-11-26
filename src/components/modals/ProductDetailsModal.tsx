@@ -19,12 +19,14 @@ const ProductDetailsModal = ({ product, isOpen, onClose }: ProductDetailsModalPr
   const addToCart = useCartStore((state) => state.addToCart);
   
   const handleAddToCart = (product: IProduct) => {
+    const firstImage = product.image?.[0] || { asset: { url: "" } }; // Provide a fallback for safety
+
     const cartItem: CartItem = {
       _id: product._id,
       name: product.name,
       price: product.price,
       quantity: 1, // Default quantity is 1
-      image: product.image,
+      image: firstImage,
     };
     addToCart(cartItem);
   };
@@ -43,7 +45,7 @@ const ProductDetailsModal = ({ product, isOpen, onClose }: ProductDetailsModalPr
         {/* Product Images */}
         <div>
           <Image
-            src={product?.image.asset.url}
+            src={product?.image[0]?.asset.url}
             alt={product.name}
             width={500}
             height={500}

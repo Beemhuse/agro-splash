@@ -18,14 +18,12 @@ export async function generateStaticParams() {
 }
 
 // Fetch metadata for SEO
-
-// Fetch metadata for SEO
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const resolvedParams = await params; // Ensure `params` is awaited
+  const resolvedParams = await params; // Await `params`
   const product = await client.fetch(
     `*[_type == "product" && slug.current == $slug][0] {
       name, description
@@ -45,8 +43,7 @@ const Page = async ({
 }: {
   params: Promise<{ slug: string }>;
 }) => {
-  const resolvedParams = await params; // Await `params` to resolve
-console.log(resolvedParams)
+  const resolvedParams = await params; // Await `params`
   const product: IProduct = await client.fetch(
     `*[_type == "product" && slug.current == $slug][0] {
       _id,
