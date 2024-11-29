@@ -1,20 +1,22 @@
 "use client";
 // components/Header.tsx
 import React, { useState } from "react";
-import { FiMenu, FiSearch, FiUser, FiShoppingCart, FiX } from "react-icons/fi";
+import { FiMenu, FiSearch, FiUser, FiShoppingCart, FiX, FiLogOut, FiHome, FiLogIn } from "react-icons/fi";
 import anime from "animejs";
 import Link from "next/link";
 import useCartStore from "@/store/cartStore";
+import ShoppingCartModal from "../modals/ShoppingCartModal";
+import useModal from "@/hooks/useModal";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const {isOpen, openModal, closeModal} =useModal()
   const cart = useCartStore((state) => state.cart);
   const cartQuantity = cart?.reduce((total, item) => total + item.quantity, 0);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
 
-    // Animate the menu opening
     anime({
       targets: ".menu-items",
       opacity: [0, 1],
@@ -23,7 +25,15 @@ const Header = () => {
       easing: "easeOutExpo",
     });
   };
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const closeDropdown = () => {
+    setIsDropdownOpen(false);
+  };
   return (
     <header className="flex flex-wrap items-center justify-between p-4 bg-white shadow-md">
       {/* Logo and Menu */}
@@ -74,10 +84,50 @@ const Header = () => {
 
       {/* User and Cart */}
       <div className="flex items-center space-x-4 mt-4 sm:mt-0">
-        <FiUser className="text-2xl cursor-pointer" />
+        <FiUser className="text-2xl cursor-pointer"           onClick={toggleDropdown}
+ />
+ {isDropdownOpen && (
+          <div className="absolute right-5 mt-2 top-10 w-48 bg-white rounded-md shadow-lg z-10">
+            <ul className="py-2">
+              <li>
+                <Link
+                  href="/auth/login"
+                  className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  onClick={closeDropdown}
+                >
+                  <FiLogIn className="mr-2 text-lg" />
+                  Login / Register
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/dashboard"
+                  className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  onClick={closeDropdown}
+                >
+                  <FiHome className="mr-2 text-lg" />
+                  Dashboard
+                </Link>
+              </li>
+              <li>
+                <button
+                  onClick={() => {
+                    // Handle logout logic here
+                    console.log("Logout clicked");
+                    closeDropdown();
+                  }}
+                  className="w-full text-left flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >
+                  <FiLogOut className="mr-2 text-lg text-red-500" />
+                  Logout
+                </button>
+              </li>
+            </ul>
+          </div>
+        )}
         <div
           className="relative cursor-pointer"
-          onClick={() => (window.location.href = "/cart")}
+          onClick={openModal}
         >
           <FiShoppingCart className="text-2xl" />
           {cartQuantity > 0 && (
@@ -122,6 +172,12 @@ const Header = () => {
           </ul>
         </div>
       )}
+
+<ShoppingCartModal
+        isOpen={isOpen}
+        onClose={closeModal}
+        cartItems={cart}
+      />
     </header>
   );
 };

@@ -1,22 +1,24 @@
 export const PRODUCTS_QUERY = `*[
-    _type == "product" && defined(slug.current)
-  ] | order(publishedAt desc)[0...12] {
+  _type == "product" && !(_id in path("drafts.**")) && defined(slug.current)
+] | order(publishedAt desc)[0...12] {
+  _id,
+  name,
+  publishedAt,
+  slug,
+  price,
+  favouriteBy,
+  rating,
+  category-> {
     _id,
-    name,
-    publishedAt,
-    slug,
-    price,
-    rating,
-    category-> {
-      _id,
-      name
-    },
-    image[] {
-      asset-> {
-        url
-      }
+    name
+  },
+  image[] {
+    asset-> {
+      url
     }
-  }`;
+  }
+}`;
+
   
 export const COURSES_QUERY = `*[
     _type == "course" && defined(slug.current)

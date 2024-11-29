@@ -3,6 +3,7 @@ import { client } from "@/sanity/client";
 import { IProduct } from "@/app/constants/interfaces";
 import ImageDisplay from "@/components/pages/market/ImageDisplay";
 import ProductTabs from "@/components/pages/market/ProductTabs";
+// import useCartStore from '@/store/cartStore';
 
 // Fetch single product data based on slug
 export async function generateStaticParams() {

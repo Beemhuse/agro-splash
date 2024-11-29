@@ -63,6 +63,7 @@ export interface IProduct {
   name: string;
   slug: ISlug;
   category: ICategory;
+  favouriteBy?: boolean;
   price: number;
   originalPrice?: number;
   discount?: number | null;

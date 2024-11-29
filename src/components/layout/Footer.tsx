@@ -2,6 +2,9 @@
 import React from "react";
 import Image from "next/image";
 import useAnimeOnView from "@/hooks/useAnimeOnView";
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaPhone     } from "react-icons/fa6";
+import { IoLocationSharp } from "react-icons/io5";
+import { IoIosMail } from "react-icons/io";
 
 const Footer = () => {
   const ref = useAnimeOnView({
@@ -11,7 +14,7 @@ const Footer = () => {
     easing: "easeOutQuad",
   });
   return (
-    <footer ref={ref} className="bg-gray-900 text-white">
+    <footer ref={ref} className="bg-gray-900 mt-auto text-white">
       <div className="container mx-auto px-6 py-10">
         <div className="flex flex-col md:flex-row md:justify-between">
           {/* Logo and About Section */}
@@ -60,13 +63,13 @@ const Footer = () => {
             <h3 className="text-lg font-bold mb-4">Contact Us</h3>
             <ul className="space-y-2 text-sm text-gray-400">
               <li>
-                <span>📍 Address:</span> 123 Agro Road, Lagos, Nigeria
+                <span className="flex items-center gap-2"><IoLocationSharp /> Address</span> 123 Agro Road, Lagos, Nigeria
               </li>
               <li>
-                <span>📞 Phone:</span> +234 800 123 4567
+                <span className="flex items-center gap-2"><FaPhone  /> Phone</span> +234 800 123 4567
               </li>
               <li>
-                <span>✉️ Email:</span>{" "}
+                <span className="flex items-center gap-2"><IoIosMail /> Email</span>{" "}
                 <a href="mailto:info@agro-splash.com" className="hover:underline">
                   info@agro-splash.com
                 </a>
@@ -85,12 +88,8 @@ const Footer = () => {
               rel="noopener noreferrer"
               className="hover:text-gray-400"
             >
-              <Image
-                src="/icons/facebook.svg"
-                alt="Facebook"
-                width={24}
-                height={24}
-              />
+                          <FaFacebook />
+
             </a>
             <a
               href="https://twitter.com"
@@ -98,12 +97,8 @@ const Footer = () => {
               rel="noopener noreferrer"
               className="hover:text-gray-400"
             >
-              <Image
-                src="/icons/twitter.svg"
-                alt="Twitter"
-                width={24}
-                height={24}
-              />
+                         <FaTwitter />
+
             </a>
             <a
               href="https://instagram.com"
@@ -111,12 +106,7 @@ const Footer = () => {
               rel="noopener noreferrer"
               className="hover:text-gray-400"
             >
-              <Image
-                src="/icons/instagram.svg"
-                alt="Instagram"
-                width={24}
-                height={24}
-              />
+              <FaInstagram/>
             </a>
             <a
               href="https://linkedin.com"
@@ -124,12 +114,8 @@ const Footer = () => {
               rel="noopener noreferrer"
               className="hover:text-gray-400"
             >
-              <Image
-                src="/icons/linkedin.svg"
-                alt="LinkedIn"
-                width={24}
-                height={24}
-              />
+              
+            <FaLinkedin  />
             </a>
           </div>
 

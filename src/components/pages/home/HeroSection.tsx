@@ -45,7 +45,7 @@ const HeroSection = () => {
         pagination={{ clickable: true }}
         autoplay={{ delay: 10000, disableOnInteraction: false }}
         loop
-        className="w-full h-[800px]"
+        className="w-full sm:h-[600px] xl:h-[700px] h-[70vh]"
       >
         {slides.map((slide, index) => (
           <SwiperSlide key={index}>
@@ -59,7 +59,7 @@ const HeroSection = () => {
             >
               {/* Content */}
               <div className="max-w-lg bg-black bg-opacity-50 p-8 rounded-lg">
-                <h1 className="text-5xl font-bold leading-tight mb-4">
+                <h1 className="xl:text-5xl text-2xl font-bold leading-tight mb-4">
                   {slide.title}{" "}
                   <span className={`text-${slide.buttonColor.replace("bg-", "")}`}>
                     {slide.subtitle}

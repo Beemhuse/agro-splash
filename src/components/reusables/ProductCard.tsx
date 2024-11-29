@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { FiShoppingCart } from "react-icons/fi";
 import { IoIosStar } from "react-icons/io";
+import { IoEyeOutline } from "react-icons/io5";
+import { FaRegHeart } from "react-icons/fa";
 
   interface IProps {
     product: IProduct; // Pass the entire product object
@@ -25,10 +27,8 @@ const ProductCard = ({ product, handleOpenModal }: IProps) => {
         rating,
         // description,
       } = product;
-     console.log(product)
   return (
     <div
-    onClick={()=>push(`market-place/${slug.current}`)}
       className={`relative bg-white shadow-md rounded-lg p-4 border ${
         isOutOfStock
           ? "opacity-60 border-gray-200"
@@ -46,16 +46,27 @@ const ProductCard = ({ product, handleOpenModal }: IProps) => {
           Sale {discount}%
         </span>
       )}
+      
+      
 
       {/* Product Image */}
-      <div className="flex items-center justify-center h-48 mb-4">
+      <div className="flex relative items-center justify-center h-48 mb-4">
         <Image
           src={image[0]?.asset?.url}
           alt={name}
           height={500}
           width={500}
-          className="h-full object-contain"
+          loading='lazy'
+          className="h-full w-full object-cover"
         />
+        <span className="absolute top-0 cursor-pointer right-2 text-lg  text-black bg-white shadow-md rounded-full h-8 w-8 flex items-center justify-center  font-medium px-2 py-1">
+          <FaRegHeart />
+        </span>
+        <span 
+    onClick={()=>push(`market-place/${slug.current}`)}
+    className="absolute top-10 right-2 cursor-pointer text-lg  text-black bg-white shadow-md rounded-full h-8 w-8 flex items-center justify-center  font-medium px-2 py-1">
+          <IoEyeOutline />
+        </span>
       </div>
 
       {/* Product Details */}

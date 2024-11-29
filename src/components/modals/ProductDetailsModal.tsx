@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // import Modal from './Modal'; // Import the reusable modal
 import Image from 'next/image';
 import { FiMinus, FiPlus } from 'react-icons/fi';
@@ -8,37 +8,80 @@ import { FiFacebook, FiTwitter,  FiHeart } from 'react-icons/fi';
 import Modal from '../reusables/Modal';
 import { CartItem, IProduct } from '@/app/constants/interfaces';
 import useCartStore from '@/store/cartStore';
+import toast from 'react-hot-toast';
+import { addFavourite, isProductFavourited, removeFavourite } from '@/utils/toggleFavourites';
+import { Cookies } from "react-cookie";
 
+// const Coo
 interface ProductDetailsModalProps {
   product: IProduct;
   isOpen: boolean;
   onClose: () => void;
 }
+
 const ProductDetailsModal = ({ product, isOpen, onClose }: ProductDetailsModalProps) => {
-  const [quantity, setQuantity] = useState(1);
-  const addToCart = useCartStore((state) => state.addToCart);
-  
-  const handleAddToCart = (product: IProduct) => {
+  const cookies = new Cookies()
+console.log(product)
+  const userId = cookies.get("agro-user")
+  const [isFavourite, setIsFavourite] = useState(null);
+
+
+  const { addToCart, updateQuantity, cart } = useCartStore((state) => state);
+  const existingItem = cart.find((cartItem) => cartItem._id === product._id);
+  const [quantity, setQuantity] = useState(existingItem?.quantity || 1);
+
+ const handleAddToCart = (product: IProduct) => {
     const firstImage = product.image?.[0] || { asset: { url: "" } }; // Provide a fallback for safety
 
-    const cartItem: CartItem = {
-      _id: product._id,
-      name: product.name,
-      price: product.price,
-      quantity: 1, // Default quantity is 1
-      image: firstImage,
-    };
-    addToCart(cartItem);
+    if (existingItem) {
+      toast.error("Product already in cart");
+    } else {
+      // Add the item to the cart
+      const cartItem: CartItem = {
+        _id: product._id,
+        name: product.name,
+        price: product.price,
+        quantity,
+        image: firstImage,
+      };
+      addToCart(cartItem);
+      toast.success("Product added to cart");
+    }
+  };
+  const handleQuantityChange = (type: "increment" | "decrement") => {
+    const newQuantity =
+      type === "increment" ? quantity + 1 : Math.max(quantity - 1, 1);
+  
+    if (newQuantity !== quantity) {
+      // Only update the cart and show the toast if the quantity changes
+      if (existingItem) {
+        updateQuantity(product._id, newQuantity);
+        toast.success("Quantity updated");
+      }
+      setQuantity(newQuantity);
+    }
+  };
+  const handleToggleFavourite = async () => {
+    const isFavourited = await isProductFavourited(product._id, userId.id);
+  console.log(isFavourited)
+    if (isFavourited) {
+      await removeFavourite(product._id, userId.id);
+      toast.success("Removed from Favourites");
+    } else {
+      await addFavourite(product._id, userId.id);
+      toast.success("Added to Favourites");
+    }
   };
 
-  const handleQuantityChange = (type: 'increment' | 'decrement') => {
-    setQuantity((prev) => {
-      if (type === 'increment') return prev + 1;
-      if (type === 'decrement' && prev > 1) return prev - 1;
-      return prev;
-    });
-  };
+useEffect(()=>{
+  async function isfavProd(){
 
+   const favt =  await isProductFavourited(product._id, userId.id)
+    setIsFavourite(favt)
+  }
+  isfavProd()
+}, [product._id, userId.id])
+console.log(isFavourite)
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -98,7 +141,12 @@ const ProductDetailsModal = ({ product, isOpen, onClose }: ProductDetailsModalPr
             <button onClick={()=>handleAddToCart(product)} className="bg-green-600 text-white px-6 py-2 rounded-lg">
               Add to Cart
             </button>
-            <button className="bg-gray-100 text-gray-600 p-3 rounded-lg">
+            <button
+              onClick={handleToggleFavourite}
+              className={`p-3 rounded-lg ${
+                isFavourite ? "text-red-600" : "bg-gray-100 text-gray-600"
+              }`}
+            >
               <FiHeart />
             </button>
           </div>

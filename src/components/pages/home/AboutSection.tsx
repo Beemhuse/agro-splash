@@ -57,7 +57,7 @@ export default function AboutSection() {
               alt={image.alt}
               width={600}
               height={400}
-              className="rounded-lg object-cover"
+              className="rounded-lg h-2/3 xl:h-full object-cover"
             />
           </SwiperSlide>
         ))}
