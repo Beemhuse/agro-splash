@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import ProductCard from "@/components/reusables/ProductCard";
 import useModal from "@/hooks/useModal";
 import ProductDetailsModal from "@/components/modals/ProductDetailsModal";
-import { IProduct } from "@/app/constants/interfaces";
+import { IProduct } from "@/constants/interfaces";
 import EmptyState from "@/components/reusables/EmptyState";
 
 interface SmartDealsProps {

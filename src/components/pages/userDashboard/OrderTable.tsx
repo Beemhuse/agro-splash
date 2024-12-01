@@ -1,40 +1,77 @@
-const OrderTable = () => {
-    const orders = [
-      { id: "#738", date: "8 Sep, 2020", total: "$135.00", products: 5, status: "Processing" },
-      { id: "#703", date: "24 May, 2020", total: "$25.00", products: 1, status: "On the way" },
-      { id: "#130", date: "22 Oct, 2020", total: "$250.00", products: 4, status: "Completed" },
-      { id: "#561", date: "1 Feb, 2020", total: "$35.00", products: 1, status: "Completed" },
-    ];
-  
-    return (
-      <table className="w-full text-left text-sm text-gray-500">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50">
-          <tr>
-            <th className="px-4 py-2">Order ID</th>
-            <th className="px-4 py-2">Date</th>
-            <th className="px-4 py-2">Total</th>
-            <th className="px-4 py-2">Status</th>
-            <th className="px-4 py-2">Actions</th>
+"use client";
+
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { getOrderHistory } from "@/service/apiservice";
+import { Cookies } from "react-cookie";
+import { IOrder } from "@/constants/interfaces";
+
+export default function OrderHistory() {
+  const [orders, setOrders] = useState<IOrder[]>([]); // Replace `any[]` with a proper interface for order data.
+  const [loading, setLoading] = useState<boolean>(true);
+const cookies = new Cookies()
+const user = cookies.get("agro-user")
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const data = await getOrderHistory(user.id);
+        setOrders(data || []);
+      } catch (error) {
+        console.error("Error fetching order history:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchOrders();
+  }, [user.id]);
+console.log(orders)
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (orders.length === 0) {
+    return <div>No orders found.</div>;
+  }
+
+  return (
+    <div className="container mx-auto p-6">
+      <h1 className="text-2xl font-bold mb-4">Order History</h1>
+      <table className="table-auto w-full border-collapse border border-gray-200">
+        <thead>
+          <tr className="bg-gray-100">
+            <th className="border border-gray-200 p-2">Order ID</th>
+            <th className="border border-gray-200 p-2">Date</th>
+            <th className="border border-gray-200 p-2">Total</th>
+            <th className="border border-gray-200 p-2">Quantity</th>
+            <th className="border border-gray-200 p-2">Status</th>
+            <th className="border border-gray-200 p-2">Actions</th>
           </tr>
         </thead>
         <tbody>
           {orders.map((order) => (
-            <tr key={order.id} className="bg-white border-b">
-              <td className="px-4 py-2">{order.id}</td>
-              <td className="px-4 py-2">{order.date}</td>
-              <td className="px-4 py-2">{order.total} ({order.products} Products)</td>
-              <td className="px-4 py-2">{order.status}</td>
-              <td className="px-4 py-2">
-                <a href="#" className="text-green-600 hover:underline">
+            <tr key={order._id}>
+              <td className="border border-gray-200 p-2">#{order._id}</td>
+              <td className="border border-gray-200 p-2">{new Date(order._createdAt).toLocaleDateString()}</td>
+              <td className="border border-gray-200 p-2">
+                ${order.total.toFixed(2)}
+              </td>
+              <td className="border border-gray-200 p-2">
+              {order.products.length} 
+              </td>
+              <td className="border border-gray-200 p-2">{order.status}</td>
+              <td className="border border-gray-200 p-2">
+                <Link
+                  href={`/u/orders/${order.transactionRef}`}
+                  className="text-green-600 underline"
+                >
                   View Details
-                </a>
+                </Link>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-    );
-  };
-  
-  export default OrderTable;
-  
+    </div>
+  );
+}

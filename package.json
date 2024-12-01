@@ -17,6 +17,8 @@
     "animejs": "^3.2.2",
     "axios": "^1.7.8",
     "bcryptjs": "^2.4.3",
+    "canvas-confetti": "^1.9.3",
+    "crypto": "^1.0.1",
     "jsonwebtoken": "^9.0.2",
     "next": "15.0.3",
     "next-sanity": "^9.8.16",
@@ -32,12 +34,14 @@
     "reactjs-otp-input": "^2.0.10",
     "styled-components": "^6.1.13",
     "swiper": "^11.1.14",
+    "uuid": "^11.0.3",
     "zod": "^3.23.8",
     "zustand": "^5.0.1"
   },
   "devDependencies": {
     "@types/animejs": "^3.1.12",
     "@types/bcryptjs": "^2.4.6",
+    "@types/canvas-confetti": "^1.6.4",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^20",
     "@types/nodemailer": "^6.4.17",

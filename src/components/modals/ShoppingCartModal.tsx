@@ -1,5 +1,6 @@
 "use client";
-import { CartItem } from "@/app/constants/interfaces";
+import { CartItem } from "@/constants/interfaces";
+import useCartStore from "@/store/cartStore";
 import Image from "next/image";
 import { MdOutlineCancel } from "react-icons/md";
 
@@ -10,14 +11,14 @@ interface ShoppingCartModalProps {
   onClose: () => void;
 }
 const ShoppingCartModal = ({ isOpen, onClose, cartItems }: ShoppingCartModalProps) => {
-  if (!isOpen) return null;
-
+  const removeFromCart = useCartStore(state => state.removeFromCart)
   // Calculate total price
   const totalPrice = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
-
+  
+  if (!isOpen) return null;
   return (
     <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex  justify-end">
       <div className="bg-white w-full sm:w-96 p-5 shadow-lg h-[100vh] flex flex-col">
@@ -27,12 +28,20 @@ const ShoppingCartModal = ({ isOpen, onClose, cartItems }: ShoppingCartModalProp
             Shopping Cart ({cartItems.length})
           </h2>
           <button onClick={onClose} className="text-gray-600 hover:text-black">
-            ×
+          <MdOutlineCancel />
           </button>
         </div>
 
         {/* Cart Items */}
+
         <div className="flex-1 overflow-y-auto p-4">
+          {
+            cartItems.length === 0 && (
+              <p className="text-center text-gray-500">
+                Your shopping cart is empty. Add some products to continue.
+              </p>
+            )
+          }
           {cartItems.map((item, index) => (
             <div
               key={index}
@@ -57,7 +66,7 @@ const ShoppingCartModal = ({ isOpen, onClose, cartItems }: ShoppingCartModalProp
               </div>
               {/* Remove Button */}
               <button
-                // onClick={() => item.onRemove(item.id)}
+                onClick={() => removeFromCart(item._id)}
                 className="text-red-500 hover:text-red-700"
               >
                 <MdOutlineCancel />

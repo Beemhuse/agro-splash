@@ -3,7 +3,7 @@ import React from "react";
 import Image from "next/image";
 import { FiTrash2 } from "react-icons/fi";
 import useCartStore from "@/store/cartStore"; // Assuming you have a cart store
-import { CartItem } from "../constants/interfaces";
+import { CartItem } from "../../constants/interfaces";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 

@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { FiShoppingCart, FiHeart } from "react-icons/fi";
 import { FaFacebook, FaTwitter, FaWhatsapp, FaPinterest } from "react-icons/fa";
-import { CartItem, IProduct } from "@/app/constants/interfaces";
+import { CartItem, IProduct } from "@/constants/interfaces";
 import useCartStore from "@/store/cartStore";
 import toast from "react-hot-toast";
 

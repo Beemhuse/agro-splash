@@ -1,5 +1,5 @@
 'use client';
-import { IProduct } from "@/app/constants/interfaces";
+import { IProduct } from "@/constants/interfaces";
 import { useState } from "react";
 import { IoIosStar, IoIosStarOutline } from "react-icons/io";
 

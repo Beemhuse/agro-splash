@@ -79,3 +79,38 @@ export interface IProduct {
   description: string;
   review?: IReview[]
 }
+
+
+
+// src/constants/interfaces.ts
+export interface IProducts {
+  _id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  image: {
+    asset: {
+      url: string;
+    };
+  };
+}
+
+export interface ICustomer {
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+}
+
+export interface IOrder {
+  _id: string;
+  transactionRef: string;
+  total: number;
+  products: IProducts[];
+  discount: number;
+  shippingCost: number;
+  customer: ICustomer;
+  status: string; // 1 = Order Received, 2 = Processing, etc.
+  paymentMethod: string;
+  orderDate: string;
+}

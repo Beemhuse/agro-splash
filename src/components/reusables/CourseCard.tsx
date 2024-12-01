@@ -1,4 +1,4 @@
-import { ICourse } from "@/app/constants/interfaces";
+import { ICourse } from "@/constants/interfaces";
 import Image from "next/image";
 import React from "react";
 // import { FiShoppingCart } from "react-icons/fi";

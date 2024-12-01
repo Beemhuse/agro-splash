@@ -1,4 +1,4 @@
-import { IProduct } from "@/app/constants/interfaces";
+import { IProduct } from "@/constants/interfaces";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";

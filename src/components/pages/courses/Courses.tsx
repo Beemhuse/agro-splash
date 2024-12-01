@@ -3,7 +3,7 @@
 import React from "react";
 // import useModal from "@/hooks/useModal";
 // import ProductDetailsModal from "@/components/modals/ProductDetailsModal";
-import { ICourse } from "@/app/constants/interfaces";
+import { ICourse } from "@/constants/interfaces";
 import EmptyState from "@/components/reusables/EmptyState";
 import CourseCard from "@/components/reusables/CourseCard";
 import Link from "next/link";

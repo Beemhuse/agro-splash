@@ -1,6 +1,6 @@
 import { client } from "@/sanity/client";
 import { PRODUCTS_QUERY, CATEGORIES_QUERY, PROMOTIONS_QUERY } from "@/sanity/queries"; // Import the query
-import { ICategory, IProduct, IPromotion, ITopCategory } from '../constants/interfaces';
+import { ICategory, IProduct, IPromotion, ITopCategory } from '../../constants/interfaces';
 import FilteredContent from '@/components/pages/market/FilteredContent';
 
 const options = { next: { revalidate: 30 } };

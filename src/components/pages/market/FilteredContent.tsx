@@ -1,5 +1,5 @@
 'use client';
-import { ICategory, IProduct, IPromotion, ITopCategory } from "@/app/constants/interfaces";
+import { ICategory, IProduct, IPromotion, ITopCategory } from "@/constants/interfaces";
 import { useState } from "react";
 import CategoriesMenu from "./CategoriesMenu";
 import SmartDeals from "./SmartDeals";

@@ -1,6 +1,6 @@
 import { client } from "@/sanity/client";
 import { COURSES_QUERY } from "@/sanity/queries"; // Import the query
-import { ICourse } from '../constants/interfaces';
+import { ICourse } from '../../constants/interfaces';
 import Courses from "@/components/pages/courses/Courses";
 
 const options = { next: { revalidate: 30 } };

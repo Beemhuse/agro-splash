@@ -10,13 +10,12 @@ export default function init(): void {
   axios.defaults.withCredentials = false;
 
   // Retrieve tokens from cookies
-  // const accessToken = cookies.get("nw_token");
+  const accessToken = cookies.get("agro-token");
   const refreshToken = cookies.get("nw_refresh");
-
   // Set default Authorization header if access token exists
-//   if (accessToken) {
-//     axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-//   }
+  if (accessToken) {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+  }
 
   // Add response interceptor for handling token expiration
   axios.interceptors.response.use(

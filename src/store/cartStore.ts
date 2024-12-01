@@ -1,4 +1,4 @@
-import { CartItem } from "@/app/constants/interfaces";
+import { CartItem } from "@/constants/interfaces";
 import {create} from "zustand";
 import { persist } from "zustand/middleware";
 

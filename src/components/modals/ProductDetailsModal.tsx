@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { FiMinus, FiPlus } from 'react-icons/fi';
 import { FiFacebook, FiTwitter,  FiHeart } from 'react-icons/fi';
 import Modal from '../reusables/Modal';
-import { CartItem, IProduct } from '@/app/constants/interfaces';
+import { CartItem, IProduct } from '@/constants/interfaces';
 import useCartStore from '@/store/cartStore';
 import toast from 'react-hot-toast';
 import { addFavourite, isProductFavourited, removeFavourite } from '@/utils/toggleFavourites';

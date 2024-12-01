@@ -34,3 +34,57 @@ export const getProductWithFavouriteStatus = async (productId: string, userId: s
     throw new Error("Failed to fetch product details.");
   }
 };
+
+
+export const getServiceFees = async () => {
+  const query = `*[_type == "serviceFee"]{_id, location, fee}`;
+  const data = await client.fetch(query);
+  return data || [];
+};
+
+import { buildOrdersQuery } from "@/sanity/queries";
+
+export const getOrderHistory = async (customerId: string) => {
+  const query = buildOrdersQuery(customerId);
+  console.log("query", query)
+  const data = await client.fetch(query);
+  console.log("query", data)
+  return data;
+};
+
+export const getOrderById = async (orderId: string) => {
+  const query = `
+    *[_type == "order" && _id == $orderId][0]{
+      _id,
+      transactionRef,
+      total,
+      products[] {
+        product->{
+          _id,
+          name,
+          price,
+          "image": image.asset->url
+        },
+        quantity
+      },
+      discount,
+      shippingCost,
+      serviceFee->{
+        _id,
+        location,
+        fee
+      },
+      customer->{
+        name,
+        email,
+        phone,
+        address
+      },
+      status,
+      paymentMethod,
+      createdAt
+    }
+  `;
+  const data = await client.fetch(query, { orderId });
+  return data;
+};

@@ -1,11 +1,10 @@
 import React from "react";
-import CategorySection from "../components/pages/home/Categories";
-// import HeaderSlider from "../components/pages/home/HeaderSlider";
 import KeyFeatures from "../components/pages/home/KeyFeatures";
 import WhyChoose from "../components/pages/home/WhyChoose";
 import TestimonialSlider from "../components/pages/home/TestimonialSlider";
 import AboutSection from "../components/pages/home/AboutSection";
 import HeroSection from "@/components/pages/home/HeroSection";
+import NewsletterComponent from "@/components/pages/NewsletterComponent";
 
 const Home = () => {
   return (
@@ -16,7 +15,8 @@ const Home = () => {
         <KeyFeatures />
         <WhyChoose />
         <TestimonialSlider />
-        <CategorySection />
+        <NewsletterComponent />
+        {/* <CategorySection /> */}
       </main>
     </section>
   );

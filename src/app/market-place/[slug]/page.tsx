@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { client } from "@/sanity/client";
-import { IProduct } from "@/app/constants/interfaces";
+import { IProduct } from "@/constants/interfaces";
 import ImageDisplay from "@/components/pages/market/ImageDisplay";
 import ProductTabs from "@/components/pages/market/ProductTabs";
 // import useCartStore from '@/store/cartStore';
