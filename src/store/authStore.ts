@@ -55,6 +55,8 @@ export const useAuthStore = create<AuthState>((set) => ({
   // Logout and clear all data
   logout: () => {
     cookies.remove("agro-token", { path: "/" }); // Remove cookie
+    cookies.remove("agro-user", { path: "/" }); // Remove cookie
+      window.location.href = "/";
     set({ email: null, token: null, user: null, isAuthenticated: false });
   },
 }));

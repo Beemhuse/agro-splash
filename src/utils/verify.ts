@@ -32,17 +32,26 @@ export const verifyPaystackPayment = async (trxref: string) => {
       return false;
     }
   } catch (error: unknown) {
-    if (error.response) {
-      // The request was made, but the server responded with an error status
-      console.error('Paystack server error:', error.response.data);
-    } else if (error.request) {
-      // The request was made but no response was received
-      console.error('No response received from Paystack');
+    if (axios.isAxiosError(error)) {
+      if (error.response) {
+        // The request was made, but the server responded with an error status
+        console.error('Paystack server error:', error.response.data);
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error('No response received from Paystack');
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.error('Error setting up the request:', error.message);
+      }
+    } else if (error instanceof Error) {
+      // For general JavaScript errors
+      console.error('General error:', error.message);
     } else {
-      // Something happened in setting up the request that triggered an Error
-      console.error('Error setting up the request:', error.message);
+      // Unknown error type
+      console.error('An unknown error occurred:', error);
     }
-
+  
     return false; // Payment verification failed
   }
+  
 };

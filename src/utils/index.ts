@@ -62,16 +62,6 @@ export const createOrder = async ({
 }: CreateOrderParams): Promise<Order | { error: string; message: string }> => {
   try {
 
-    // Map products to an array of references with unique keys
-    // const cartItemsWithKeys = products.map((item, index) => ({
-    //   _key: `orderedItem_${index}`, // Unique key for each item
-    //   product: { _type: "reference", _ref: item._id }, // Reference to the product
-    //   quantity: item.quantity, // Quantity of the product
-    // }));
-
-    // Ensure that the serviceFee and user references are valid strings
-    // const serviceFeeRef =
-    //   typeof serviceFee === "string" ? serviceFee : serviceFee._ref;
     const serviceFeeRef = { _type: "reference", _ref: serviceFee };
     console.log(serviceFeeRef)
 

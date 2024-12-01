@@ -1,4 +1,5 @@
 import { client } from "@/sanity/client";
+import { buildOrdersQuery, getCustomerDetailsQuery } from "@/sanity/queries";
 
 /**
  * Fetch product details with the favourite status for a specific user.
@@ -42,13 +43,10 @@ export const getServiceFees = async () => {
   return data || [];
 };
 
-import { buildOrdersQuery } from "@/sanity/queries";
 
 export const getOrderHistory = async (customerId: string) => {
   const query = buildOrdersQuery(customerId);
-  console.log("query", query)
   const data = await client.fetch(query);
-  console.log("query", data)
   return data;
 };
 
@@ -87,4 +85,16 @@ export const getOrderById = async (orderId: string) => {
   `;
   const data = await client.fetch(query, { orderId });
   return data;
+};
+
+
+export const fetchCustomerDetails = async (customerId: string) => {
+  try {
+    const query = getCustomerDetailsQuery(customerId);
+    const userDetails = await client.fetch(query, { customerId });
+    return userDetails;
+  } catch (error) {
+    console.error("Error fetching customer details:", error);
+    return null;
+  }
 };

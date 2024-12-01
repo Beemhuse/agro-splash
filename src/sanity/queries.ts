@@ -167,3 +167,32 @@ export function buildOrdersQueryByTransactionRef(transactionRef: string) {
     }
   `;
 }
+
+
+
+export const getCustomerDetailsQuery = (customerId: string) => groq`
+  *[_type == "customer" && _id == "${customerId}"][0]{
+    name,
+    email,
+    phone,
+    address,
+    createdAt,
+    updatedAt,
+    isActive,
+    orderCount,
+    totalSpent,
+    "orders": orders[]->{
+      _id,
+      transactionRef,
+      total,
+      status,
+      createdAt
+    },
+    "transactions": transactions[]->{
+      _id,
+      transactionDate,
+      amount,
+      status
+    }
+  }
+`;

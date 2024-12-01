@@ -5,6 +5,7 @@ import Link from "next/link";
 import { getOrderHistory } from "@/service/apiservice";
 import { Cookies } from "react-cookie";
 import { IOrder } from "@/constants/interfaces";
+import BarsLoader from "@/components/layout/BarsLoader";
 
 export default function OrderHistory() {
   const [orders, setOrders] = useState<IOrder[]>([]); // Replace `any[]` with a proper interface for order data.
@@ -25,9 +26,8 @@ const user = cookies.get("agro-user")
 
     fetchOrders();
   }, [user.id]);
-console.log(orders)
   if (loading) {
-    return <div>Loading...</div>;
+    return <div><BarsLoader /></div>;
   }
 
   if (orders.length === 0) {

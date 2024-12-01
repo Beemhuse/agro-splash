@@ -113,4 +113,5 @@ export interface IOrder {
   status: string; // 1 = Order Received, 2 = Processing, etc.
   paymentMethod: string;
   orderDate: string;
+  _createdAt: string
 }

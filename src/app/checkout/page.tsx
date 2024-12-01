@@ -11,6 +11,13 @@ import toast from "react-hot-toast";
 import { postRequest } from "@/service/postRequest";
 import { getServiceFees } from "@/service/apiservice";
 
+interface PaymentResponse {
+  authorization_url: string;
+}
+
+interface ApiResponse {
+  paymentResponse: PaymentResponse;
+}
 // Define Zod Schema for form validation
 const billingSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
@@ -42,12 +49,15 @@ console.log(selectedServiceFee)
     };
     fetchServiceFees();
   }, []);
-  // Calculate the total amount from cartItems
-  const amount = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
 
+ // Calculate the subtotal from cartItems
+ const subtotal = cartItems.reduce(
+  (total, item) => total + item.price * item.quantity,
+  0
+);
+
+// Calculate total based on selected service fee
+const total = subtotal + (selectedServiceFee?.fee || 0);
   // Set up react-hook-form with Zod validation
   const {
     register,
@@ -63,7 +73,7 @@ console.log(selectedServiceFee)
     try {
       const payload = {
         cartItems,
-        amount,
+        amount: total,
         fullName: `${data.firstName} ${data.lastName}`,
         email: data.email,
         phoneNumber: data.phoneNumber,
@@ -75,7 +85,7 @@ console.log(selectedServiceFee)
         serviceFee: data?.serviceFee || 0, // Pass the selected service fee
       };
 
-    const res =  await postRequest("/api/order", payload);
+    const res =  await postRequest<ApiResponse>("/api/order", payload);
 
       // Notify success
       toast.success("Order placed successfully!");
@@ -87,7 +97,6 @@ console.log(selectedServiceFee)
         window.location.href = paymentLink;
       }
     } catch (error: unknown) {
-      // Notify error
       toast.error((error as Error).message || "An error occurred while placing the order.");
     }
   };
@@ -284,6 +293,20 @@ console.log(selectedServiceFee)
             ) : (
               <li className="text-gray-600 text-center">Your cart is empty.</li>
             )}
+             <li className="flex items-center justify-between">
+              <span>Subtotal</span>
+              <span>${subtotal.toFixed(2)}</span>
+            </li>
+            {selectedServiceFee && (
+              <li className="flex items-center justify-between">
+                <span>Service Fee ({selectedServiceFee.location})</span>
+                <span>${selectedServiceFee.fee.toFixed(2)}</span>
+              </li>
+            )}
+            <li className="flex items-center justify-between font-bold">
+              <span>Total</span>
+              <span>${total.toFixed(2)}</span>
+            </li>
           </ul>
         </div>
       </div>

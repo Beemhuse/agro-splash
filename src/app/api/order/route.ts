@@ -8,6 +8,11 @@ import {
 import { NextRequest } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 
+interface CartItem {
+  _id: string;
+  quantity: number;
+  _key?: string;
+}
 export async function POST(req: NextRequest) {
   const {
     cartItems,
@@ -37,11 +42,15 @@ export async function POST(req: NextRequest) {
     if (!session || !session.user) {
       throw new Error("User must be signed in to place an order.");
     }
+    let currentUserId: string;
 
-    const currentUserId = session.user.userId;
-    console.log(session, "session");
+    if (typeof session.user === "object" && session.user.userId) {
+      currentUserId = session.user.userId;
+    } else {
+      throw new Error("Invalid session. User ID is missing.");
+    }
     // Add unique keys to each item in cartItems
-    const productsWithKeys = cartItems.map((item) => {
+    const productsWithKeys = cartItems.map((item: CartItem) => {
       if (!item._id || !item.quantity) {
         throw new Error("Each cart item must have a productId and quantity.");
       }
@@ -52,7 +61,6 @@ export async function POST(req: NextRequest) {
         _key: item._key || uuidv4(), // Generate a unique key if not provided
       };
     });
-    console.log(productsWithKeys, "product with keys");
 
     // Initialize payment with Paystack
     const paymentResponse = await initializePaystack(
@@ -60,8 +68,6 @@ export async function POST(req: NextRequest) {
       amount
     );
 
-    // Debugging log to inspect the response structure
-    console.log("Payment Response:", paymentResponse);
 
     if (!paymentResponse?.reference) {
       throw new Error(
@@ -91,9 +97,12 @@ export async function POST(req: NextRequest) {
       customer: { _type: "reference", _ref: currentUserId },
     });
 
-    if (!order?._id) {
+    if (!("error" in order) && order?._id) {
+      // The order is valid; proceed
+    } else {
       throw new Error("Failed to create order.");
     }
+    
 
     // Create a transaction for the order
     const transaction = await createTransaction({
@@ -109,21 +118,41 @@ export async function POST(req: NextRequest) {
     // Update user's order history
     await updateUserAfterOrder(currentUserId, amount, order, true);
 
-    // Update the transaction status
-    await updateTransaction(currentUserId, transaction);
 
+    function isTransaction(obj: unknown): obj is { _id: string } {
+      return (
+        typeof obj === "object" &&
+        obj !== null &&
+        "_id" in obj &&
+        typeof (obj as { _id: unknown })._id === "string"
+      );
+    }
+    
+    // Update the transaction status
+    if (isTransaction(transaction)) {
+      await updateTransaction(currentUserId, transaction);
+    } else {
+      throw new Error(transaction.error || "Failed to create transaction.");
+    }
     return new Response(
       JSON.stringify({ success: true, order, transaction, paymentResponse }),
       { status: 200 }
     );
-  } catch (error: unknown) {
-    console.error("Error processing order:", error.message);
+  }catch (error: unknown) {
+  let errorMessage = "An unexpected error occurred";
 
-    return new Response(
-      JSON.stringify({
-        error: error.message || "An unexpected error occurred",
-      }),
-      { status: 500 }
-    );
+  if (error instanceof Error) {
+    // Narrow the type to Error
+    errorMessage = error.message;
   }
+
+  console.error("Error processing order:", errorMessage);
+
+  return new Response(
+    JSON.stringify({
+      error: errorMessage,
+    }),
+    { status: 500 }
+  );
+}
 }

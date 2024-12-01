@@ -5,7 +5,7 @@ import { ThreeCircles } from 'react-loader-spinner';
 
 export default function Loader() {
   return (
-    <div className="h-screen flex items-center justify-center bg-gray-100">
+    <div className="h-screen flex items-center justify-center ">
       <ThreeCircles
         visible={true}
         height="100"
@@ -16,3 +16,4 @@ export default function Loader() {
     </div>
   );
 }
+
