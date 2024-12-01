@@ -18,8 +18,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Agro-Splash",
-  description: "At Agro-Splash, we believe in the transformative power of technology and innovation in agriculture.",
+  title: "agro-Splash",
+  description: "At agro-Splash, we believe in the transformative power of technology and innovation in agriculture.",
 };
 
 export default function RootLayout({

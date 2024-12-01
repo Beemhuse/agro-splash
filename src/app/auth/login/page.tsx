@@ -105,13 +105,13 @@ const Page = () => {
 
           {/* Login Link */}
           <p className="mt-4 text-center text-sm text-gray-600">
-            Already have an account?{" "}
-            <a
-              href="/login"
+            Dont have an account?{" "}
+            <Link
+              href="/auth/register"
               className="text-green-600 font-medium hover:underline"
             >
-              {isLoading ? <DotLoader /> : "Login"}
-            </a>
+              {"Create an account"}
+            </Link>
           </p>
         </div>
       </div>
