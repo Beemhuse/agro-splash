@@ -89,7 +89,6 @@ const total = subtotal + (selectedServiceFee?.fee || 0);
 
       // Notify success
       toast.success("Order placed successfully!");
-     console.log(res)
       const paymentLink =
         res?.paymentResponse?.authorization_url;
 
