@@ -1,18 +1,15 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-// import Modal from './Modal'; // Import the reusable modal
 import Image from 'next/image';
-import { FiMinus, FiPlus } from 'react-icons/fi';
-import { FiFacebook, FiTwitter,  FiHeart } from 'react-icons/fi';
+import { FiMinus, FiPlus, FiFacebook, FiTwitter, FiHeart, FiShoppingCart } from 'react-icons/fi';
 import Modal from '../reusables/Modal';
 import { CartItem, IProduct } from '@/constants/interfaces';
 import useCartStore from '@/store/cartStore';
 import toast from 'react-hot-toast';
 import { addFavourite, isProductFavourited, removeFavourite } from '@/utils/toggleFavourites';
-import { Cookies } from "react-cookie";
+import { Cookies } from 'react-cookie';
 
-// const Coo
 interface ProductDetailsModalProps {
   product: IProduct;
   isOpen: boolean;
@@ -20,23 +17,23 @@ interface ProductDetailsModalProps {
 }
 
 const ProductDetailsModal = ({ product, isOpen, onClose }: ProductDetailsModalProps) => {
-  const cookies = new Cookies()
-console.log(product)
-  const userId = cookies.get("agro-user")
-  const [isFavourite, setIsFavourite] = useState(null);
-
+  const cookies = new Cookies();
+  const userId = cookies.get('agro-user');
+  const [isFavourite, setIsFavourite] = useState<boolean | null>(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(
+    product?.image[0]?.asset.url || null
+  );
 
   const { addToCart, updateQuantity, cart } = useCartStore((state) => state);
   const existingItem = cart.find((cartItem) => cartItem._id === product._id);
   const [quantity, setQuantity] = useState(existingItem?.quantity || 1);
 
- const handleAddToCart = (product: IProduct) => {
-    const firstImage = product.image?.[0] || { asset: { url: "" } }; // Provide a fallback for safety
+  const handleAddToCart = (product: IProduct) => {
+    const firstImage = product.image?.[0] || { asset: { url: '' } }; // Provide a fallback for safety
 
     if (existingItem) {
-      toast.error("Product already in cart");
+      toast.error('Product already in cart');
     } else {
-      // Add the item to the cart
       const cartItem: CartItem = {
         _id: product._id,
         name: product.name,
@@ -45,62 +42,70 @@ console.log(product)
         image: firstImage,
       };
       addToCart(cartItem);
-      toast.success("Product added to cart");
+      toast.success('Product added to cart');
     }
   };
-  const handleQuantityChange = (type: "increment" | "decrement") => {
-    const newQuantity =
-      type === "increment" ? quantity + 1 : Math.max(quantity - 1, 1);
-  
+
+  const handleQuantityChange = (type: 'increment' | 'decrement') => {
+    const newQuantity = type === 'increment' ? quantity + 1 : Math.max(quantity - 1, 1);
+
     if (newQuantity !== quantity) {
-      // Only update the cart and show the toast if the quantity changes
       if (existingItem) {
         updateQuantity(product._id, newQuantity);
-        toast.success("Quantity updated");
+        toast.success('Quantity updated');
       }
       setQuantity(newQuantity);
     }
   };
+
   const handleToggleFavourite = async () => {
     const isFavourited = await isProductFavourited(product._id, userId.id);
-  console.log(isFavourited)
     if (isFavourited) {
       await removeFavourite(product._id, userId.id);
-      toast.success("Removed from Favourites");
+      toast.success('Removed from Favourites');
     } else {
       await addFavourite(product._id, userId.id);
-      toast.success("Added to Favourites");
+      toast.success('Added to Favourites');
     }
   };
 
-useEffect(()=>{
-  async function isfavProd(){
+  useEffect(() => {
+    async function isFavProd() {
+      const favt = await isProductFavourited(product._id, userId.id);
+      setIsFavourite(favt);
+    }
+    isFavProd();
+  }, [product._id, userId.id]);
 
-   const favt =  await isProductFavourited(product._id, userId.id)
-    setIsFavourite(favt)
-  }
-  isfavProd()
-}, [product._id, userId.id])
-console.log(isFavourite)
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Product Images */}
-        <div>
+        <div className="flex col-span-2" >
+          
+{/* <div className=""></div> */}
+          <div className="flex flex-col gap-3 overflow-y-auto w-[100px] mt-4">
+            {product.image?.map((img, idx) => (
+              <Image
+                key={idx}
+                src={img.asset.url}
+                alt={`Thumbnail ${idx + 1}`}
+                width={80}
+                height={80}
+                className={`w-20 h-20 rounded cursor-pointer ${
+                  selectedImage === img.asset.url ? 'border-2 border-green-600' : ''
+                }`}
+                onClick={() => setSelectedImage(img.asset.url)}
+              />
+            ))}
+          </div>
           <Image
-            src={product?.image[0]?.asset.url}
+            src={selectedImage || ''}
             alt={product.name}
             width={500}
             height={500}
-            className="w-full h-auto rounded-lg"
+            className="w-2/3 h-full object-cover m-auto rounded-lg"
           />
-          {/* <div className="flex mt-4 space-x-2">
-            {product.image.map((img: string, index: number) => (
-              <div key={index} className="w-16 h-16 border rounded-md">
-                <Image src={img} alt={`Image ${index}`} width={64} height={64} />
-              </div>
-            ))}
-          </div> */}
         </div>
 
         {/* Product Details */}
@@ -109,9 +114,7 @@ console.log(isFavourite)
           <div className="flex items-center space-x-4 mt-2">
             <p className="text-green-600 font-bold text-lg">${product.price}</p>
             {product.originalPrice && (
-              <p className="text-sm text-gray-500 line-through">
-                ${product.originalPrice}
-              </p>
+              <p className="text-sm text-gray-500 line-through">${product.originalPrice}</p>
             )}
             {product.discount && (
               <span className="text-sm text-red-600 bg-red-100 px-2 py-1 rounded">
@@ -122,33 +125,34 @@ console.log(isFavourite)
           <p className="mt-4 text-gray-600">{product.description}</p>
 
           {/* Quantity and Add to Cart */}
-          <div className="mt-6 flex items-center space-x-4">
-            <div className="flex items-center border rounded">
-              <button
-                onClick={() => handleQuantityChange('decrement')}
-                className="p-2"
-              >
+          <div className="mt-6 flex  flex-col items-start gap-4">
+            <div className="flex items-center justify-start border rounded">
+              <button onClick={() => handleQuantityChange('decrement')} className="p-2">
                 <FiMinus />
               </button>
               <span className="px-4">{quantity}</span>
-              <button
-                onClick={() => handleQuantityChange('increment')}
-                className="p-2"
-              >
+              <button onClick={() => handleQuantityChange('increment')} className="p-2">
                 <FiPlus />
               </button>
             </div>
-            <button onClick={()=>handleAddToCart(product)} className="bg-green-600 text-white px-6 py-2 rounded-lg">
+            <div className="flex items-center gap-4">
+
+            <button
+              onClick={() => handleAddToCart(product)}
+              className="bg-green-600 flex items-center justify-center gap-4 w-full text-white px-6 py-2 rounded-lg"
+            >
+              <FiShoppingCart />
               Add to Cart
             </button>
             <button
               onClick={handleToggleFavourite}
               className={`p-3 rounded-lg ${
-                isFavourite ? "text-red-600" : "bg-gray-100 text-gray-600"
+                isFavourite ? 'text-red-600' : 'bg-gray-100 text-gray-600'
               }`}
             >
               <FiHeart />
             </button>
+            </div>
           </div>
 
           {/* Share Options */}
@@ -165,9 +169,6 @@ console.log(isFavourite)
             <p>
               <strong>Category:</strong> {product.category.name}
             </p>
-            {/* <p>
-              <strong>Tags:</strong> {product.tags?.join(', ')}
-            </p> */}
           </div>
         </div>
       </div>
