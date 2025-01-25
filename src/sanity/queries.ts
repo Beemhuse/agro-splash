@@ -37,15 +37,18 @@ export const COURSES_QUERY = `*[
     }
   }`;
 
-export const CATEGORIES_QUERY = `*[
+  export const CATEGORIES_QUERY = `*[
     _type == "category" && !(_id in path("drafts.**"))
   ] | order(_createdAt asc) {
     _id,
     name,
-    description,
-    image{asset->{url}},
-
+    "subCategories": subcategories[]-> { // Expand subcategories
+      _id,
+      name,
+    },
+    image { asset->{url} }
   }`;
+
 
 export const PROMOTIONS_QUERY = `*[
     _type == "promotion" && !(_id in path("drafts.**"))
@@ -61,33 +64,7 @@ export const PROMOTIONS_QUERY = `*[
     backgroundColor
   }`;
 
-//   export const ORDERS_BY_CUSTOMER_QUERY = groq`
-//   *[_type == "order" && customer._ref == $customerId]{
-//     _id,
-//     transactionRef,
-//     total,
-//     products[]{
-//       product->{
-//         _id,
-//         name,
-//         price,
-//         image.asset->url
-//       },
-//       quantity
-//     },
-//     discount,
-//     shippingCost,
-//     customer->{
-//       name,
-//       email,
-//       phone,
-//       address
-//     },
-//     status,
-//     paymentMethod,
-//     createdAt
-//   } | order(createdAt desc)
-// `;
+
 
 export function buildOrdersQuery(customerId: string) {
   return groq`

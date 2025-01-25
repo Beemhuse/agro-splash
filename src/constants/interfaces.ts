@@ -9,6 +9,7 @@ export interface ITopCategory {
 export interface ICategory {
   _id: string;
   name: string; // Define the type for a category
+  subCategories?: ISubcategory[]; // Define the type for a category
 }
 export interface ISlug {
   current: string; // Define the type for a category
@@ -58,11 +59,16 @@ interface IReview {
     name: string;
   };
 }
+export interface ISubcategory {
+  name: string;
+  id: string;
+}
 export interface IProduct {
   _id: string;
   name: string;
   slug: ISlug;
   category: ICategory;
+  subcategory?: ISubcategory;  // Optional field for subcategory
   favouriteBy?: boolean;
   price: number;
   originalPrice?: number;

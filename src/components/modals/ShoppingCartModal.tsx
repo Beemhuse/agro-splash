@@ -61,7 +61,7 @@ const ShoppingCartModal = ({ isOpen, onClose, cartItems }: ShoppingCartModalProp
               <div className="flex-1 px-4">
                 <h4 className="font-medium">{item.name}</h4>
                 <p className="text-sm text-gray-500">
-                  {item.quantity} kg × ${item.price.toFixed(2)}
+                  {item.quantity}  × ${item.price.toFixed(2)}
                 </p>
               </div>
               {/* Remove Button */}
@@ -86,6 +86,7 @@ const ShoppingCartModal = ({ isOpen, onClose, cartItems }: ShoppingCartModalProp
           <div className="flex space-x-4">
             <button
               onClick={() => (window.location.href = "/checkout")}
+              disabled={cartItems.length === 0}
               className="flex-1 py-2 bg-green-500 text-white rounded hover:bg-green-600"
             >
               Checkout

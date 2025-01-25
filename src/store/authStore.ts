@@ -23,7 +23,6 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   // Save email and authenticate user
   setEmail: (email: string) => {
-    // Save email in cookies with options
     cookies.set("auth_email", email, {
       path: "/", // Available across the entire site
       maxAge: 60 * 60 * 24 * 7, // Cookie expires in 7 days
@@ -33,7 +32,6 @@ export const useAuthStore = create<AuthState>((set) => ({
     set({ email});
   },
   setToken: (token: string) => {
-    // Save email in cookies with options
     cookies.set("agro-token", token, {
       path: "/", // Available across the entire site
       maxAge: 60 * 60 * 24 * 7, // Cookie expires in 7 days
