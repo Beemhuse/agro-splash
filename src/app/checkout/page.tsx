@@ -39,6 +39,7 @@ type BillingFormData = z.infer<typeof billingSchema>;
 
 const Page = () => {
   const cartItems = useCartStore((state) => state.cart);
+  const clearCart = useCartStore((state) => state.clearCart);
   const [serviceFees, setServiceFees] = useState<
     { _id: string; location: string; fee: number }[]
   >([]);
@@ -93,6 +94,7 @@ const Page = () => {
 
       // Notify success
       toast.success("Order placed successfully!");
+      clearCart()
       const paymentLink = res?.paymentResponse?.authorization_url;
 
       if (paymentLink) {
@@ -123,10 +125,10 @@ const Page = () => {
     <section className="pb-8 bg-gray-100">
       {/* Billing Information */}
       <div
-        className="h-20 bg-cover mb-4 bg-center flex items-center px-6"
-        style={{
-          backgroundImage: `url('/images/organic.jpeg')`,
-        }}
+        className="h-24 bg-cover bg-green-500 mb-4 bg-center flex items-center px-6"
+        // style={{
+        //   backgroundImage: `url('/images/organic.jpeg')`,
+        // }}
       >
         {/* Breadcrumbs */}
         <nav className="text-sm text-white">
@@ -143,7 +145,7 @@ const Page = () => {
               </Link>
             </li>
             <li className="text-gray-300">/</li>
-            <li className="text-green-200">Checkout</li>
+            <li className="text-black">Checkout</li>
           </ul>
         </nav>
       </div>

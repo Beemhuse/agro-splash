@@ -50,6 +50,23 @@ export interface ICourse {
   };
   backgroundColor: string; // Hex code for the background color
 }
+export interface IBook {
+  _id: string; // Unique identifier for the book
+  title: string; // Title of the book
+  author: string; // Author of the book
+  description: string; // Description of the book
+  coverImage: {
+    asset: {
+      url: string; // URL of the book's cover image
+    };
+  };
+  price: number; // Price of the book
+  rating: number; // Rating of the book (0 to 5)
+  slug: ISlug; // URL-friendly slug derived from the title
+  publisher: string; // Publisher of the book
+  publishedDate: string; // Date the book was published (ISO format)
+  isbn: string; // ISBN of the book
+}
 interface IReview {
   _id: string;
   comment: string;

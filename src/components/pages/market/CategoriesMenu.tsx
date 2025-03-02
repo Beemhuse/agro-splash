@@ -42,7 +42,7 @@ const CategoriesMenu = ({ categories, onCategorySelect }: CategoriesMenuProps) =
   return (
     <div className="flex h-full w-full items-center justify-center hide-scrollbar gap-4 py-4 px-6 bg-white shadow rounded-lg mb-20">
       {categoriesWithAll?.map((category) => (
-        <div key={category.name} className="relative">
+        <div key={category.name} className="relative max-w-full">
           <button
             className={`px-4 py-2 flex gap-2 items-center rounded-full text-sm font-medium whitespace-nowrap ${
               activeCategory === category.name
@@ -56,7 +56,7 @@ const CategoriesMenu = ({ categories, onCategorySelect }: CategoriesMenuProps) =
 
           {/* Show the subcategories popover when category is clicked, but only if category is not "All" */}
           {category?.subCategories && category.name !== "All" && openPopover === category.name && (
-            <div className="absolute left-0 mt-2 bg-white border border-red-500 shadow-lg rounded-lg py-2 z-50">
+            <div className="absolute left-0 mt-2 bg-white  shadow-lg rounded-lg py-2 z-50">
               {category?.subCategories?.map((subcategory) => (
                 <button
                   key={subcategory.id}

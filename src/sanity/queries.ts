@@ -36,7 +36,25 @@ export const COURSES_QUERY = `*[
       }
     }
   }`;
-
+  export const BOOKS_QUERY = `*[
+    _type == "book" && !(_id in path("drafts.**")) && defined(slug.current)
+  ] | order(_createdAt desc)[0...12] {
+    _id,
+    title,
+    author,
+    description,
+    coverImage {
+      asset-> {
+        url
+      }
+    },
+    price,
+    rating,
+    slug,
+    publisher,
+    publishedDate,
+    isbn
+  }`;
   export const CATEGORIES_QUERY = `*[
     _type == "category" && !(_id in path("drafts.**"))
   ] | order(_createdAt asc) {
