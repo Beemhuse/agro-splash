@@ -35,7 +35,6 @@ const Page = () => {
       setIsLoading(false);
       push("/auth/verify")
     } catch (err: unknown) {
-      console.log(err);
       toast.error(err as string);
       setIsLoading(false);
     }

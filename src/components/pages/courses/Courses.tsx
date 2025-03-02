@@ -1,8 +1,6 @@
 "use client";
 
 import React from "react";
-// import useModal from "@/hooks/useModal";
-// import ProductDetailsModal from "@/components/modals/ProductDetailsModal";
 import { IBook, ICourse } from "@/constants/interfaces";
 import EmptyState from "@/components/reusables/EmptyState";
 import CourseCard from "@/components/reusables/CourseCard";

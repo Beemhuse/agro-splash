@@ -8,7 +8,6 @@ export async function updateUserAfterOrder(
   isSuccess = true
 ) {
   try {
-    console.log("Updating user with ID:", userId);
 
     // Check if the user document exists
     const existingUser = await client.fetch(
@@ -17,7 +16,6 @@ export async function updateUserAfterOrder(
     );
 
     if (existingUser) {
-      console.log("User exists. Updating...");
       // Update the document by appending the new order
       const updatedUser = await client
         .patch(userId)
@@ -37,7 +35,6 @@ export async function updateUserAfterOrder(
 
       return updatedUser;
     } else {
-      console.log("User does not exist. Creating a new document...");
       // Create a new user document
       const newUser = await client.create({
         _id: userId,

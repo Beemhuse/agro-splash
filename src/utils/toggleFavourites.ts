@@ -17,7 +17,6 @@ export const addFavourite = async (productId: string, userId: string) => {
   
       // If the user has already favorited the product, skip the action
       if (product?.isAlreadyFavourite) {
-        console.log("User already favorited this product");
         return;
       }
   

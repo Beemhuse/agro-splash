@@ -52,7 +52,6 @@ export interface Customer {
   
       // Only pass valid fields to the Sanity client
       const sanityResponse = await client.create(userData);
-      console.log("Sanity Response:", sanityResponse);
       return sanityResponse as Customer; // Ensure returned type matches Customer interface
     } catch (sanityError) {
         if (sanityError instanceof Error) {

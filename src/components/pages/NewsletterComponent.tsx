@@ -26,7 +26,6 @@ const NewsletterComponent = () => {
   const onSubmit = async (data: SubscriptionFormData) => {
     try {
       const response = await axios.post("/api/newsletter", data);
-      console.log(response)
       toast.success(response.data.message);
     } catch (error) {
         const err = handleGenericError(error)

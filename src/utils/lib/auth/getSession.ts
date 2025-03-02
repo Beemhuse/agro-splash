@@ -3,7 +3,6 @@ import { NextRequest } from 'next/server';
 
 export async function getSession(req: NextRequest) {
   const authorizationHeader = req.headers.get('Authorization');
-  console.log("authorization ===>>> ", authorizationHeader);
   
   
   if (!authorizationHeader || !authorizationHeader.startsWith('Bearer ')) {
@@ -11,7 +10,6 @@ export async function getSession(req: NextRequest) {
   }
 
   const token = authorizationHeader.split(' ')[1]; // Extract the token part
-  console.log("authorization tonek===>>> ", token);
 
   try {
     // Verify the JWT token

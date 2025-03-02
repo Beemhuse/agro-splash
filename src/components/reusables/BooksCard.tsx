@@ -11,8 +11,8 @@ import { IoIosStar } from "react-icons/io";
   }
 const BooksCard = ({ book }: IProps) => {
     const {
-        _id,
-        slug,
+        // _id,
+        // slug,
         title,
         author,
         description,
@@ -21,7 +21,6 @@ const BooksCard = ({ book }: IProps) => {
         rating,
         // description,
       } = book;
-     console.log(book)
   return (
     <div
     // onClick={() => window.open(videoLink, "_blank")}
@@ -56,17 +55,17 @@ const BooksCard = ({ book }: IProps) => {
 
       {/* Product Details */}
       <h2 className="text-lg font-semibold mb-1">{title}</h2>
-      {/* <p className="text-sm text-gray-500 mb-2">{category.name}</p> */}
+      <p className="text-sm text-gray-500 mb-2">{author}</p>
 
       <div className="flex items-center justify-between">
         {/* Price */}
         <div>
           <p className="text-gray-800 font-bold">${price}</p>
           {/* {originalPrice && (
-            <p className="text-sm text-gray-500 line-through">
-              ${originalPrice}
-            </p>
           )} */}
+            <p className="text-sm text-gray-500 ">
+              {description.substring(0, 200)}
+            </p>
         </div>
 
         {/* {!isOutOfStock ? (

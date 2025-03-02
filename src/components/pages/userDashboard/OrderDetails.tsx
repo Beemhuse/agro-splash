@@ -18,7 +18,6 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ orders }) => {
   } = orders[0];
 
   const {   serviceFee, products, customer, _id } = order;
-console.log(orders[0])
 
   return (
     <div className="container mx-auto p-6">

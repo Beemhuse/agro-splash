@@ -63,7 +63,6 @@ export const createOrder = async ({
   try {
 
     const serviceFeeRef = { _type: "reference", _ref: serviceFee };
-    console.log(serviceFeeRef)
 
     // Create the order document in Sanity
     const order = await client.create({

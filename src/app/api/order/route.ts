@@ -76,7 +76,6 @@ export async function POST(req: NextRequest) {
     }
 
     const transactionRef = paymentResponse.reference;
-    console.log("Transaction Reference:", transactionRef);
 
     // Create the order in Sanity
     const order = await createOrder({

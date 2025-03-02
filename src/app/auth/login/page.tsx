@@ -26,7 +26,6 @@ const Page = () => {
   const setUser = useAuthStore((state) => state.setUser); // Use store to set email
 
   const onSubmit = async (data: LoginFormData) => {
-    console.log("Form Data Submitted: ", data);
     setIsLoading(true);
     try {
       const response = await postRequest<ResponseData>("/api/login", {
@@ -39,7 +38,6 @@ const Page = () => {
       setUser(response.user);
       push("/");
     } catch (err: unknown) {
-      console.log(err);
       toast.error(err as string);
       setIsLoading(false);
     }

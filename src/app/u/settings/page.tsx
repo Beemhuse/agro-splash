@@ -10,7 +10,6 @@ import { Cookies } from "react-cookie";
 import { client } from "@/sanity/client";
 
 const uploadImage = async (file: File) => {
-  console.log(file)
   try {
     const imageAsset = await client.assets.upload('image', file, {
       contentType: file.type,

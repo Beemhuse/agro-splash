@@ -7,6 +7,7 @@ import { ICategory } from "@/constants/interfaces";
 
 interface CategoriesMenuProps {
   categories: ICategory[];
+  // subCategory: string | null;
   onCategorySelect: (categoryName: string, subcategoryName?: string) => void;
 }
 
@@ -32,7 +33,7 @@ const CategoriesMenu = ({ categories, onCategorySelect }: CategoriesMenuProps) =
 
   const handleSubcategoryClick = (subcategoryName: string) => {
     setActiveSubcategory(subcategoryName);
-    onCategorySelect(activeCategory, subcategoryName); // Send the selected subcategory for filtering
+    onCategorySelect(activeCategory, subcategoryName || undefined); // Send the selected subcategory for filtering
     setOpenPopover(null); // Optionally close the popover after selecting subcategory
   };
 

@@ -16,7 +16,6 @@ interface CategoriesMenuProps {
   topCategories: Category[]; // Define the type for the categories prop
 }
 const TopCategories = ({ topCategories }: CategoriesMenuProps) => {
-  console.log(topCategories);
   return (
     <section className="py-8">
       <div className="container mx-auto px-4">

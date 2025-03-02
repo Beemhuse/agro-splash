@@ -10,7 +10,6 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
   const resolvedParams = await params;
-  console.log(resolvedParams.id)
   // Fetch order details to populate metadata dynamically
   try {
     const query = buildOrdersQueryByTransactionRef(resolvedParams.id);
@@ -51,7 +50,6 @@ const Page = async ({
   }
 
   try {
-    console.log("Transaction Ref:", resolvedParams.id);
     const query = buildOrdersQueryByTransactionRef(resolvedParams.id);
 
     // Fetch orders for the user
