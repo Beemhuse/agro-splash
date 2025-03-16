@@ -13,7 +13,6 @@ const images = [
   { src: "/images/plant.jpg", alt: "Image 1" },
   { src: "/images/web1.jpg", alt: "Image 2" },
   { src: "/images/plant1.jpg", alt: "Image 3" },
-  // { src: "/bg4.jpeg", alt: "Image 4" },
 ];
 export default function AboutSection() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -59,14 +58,12 @@ export default function AboutSection() {
       </button>
     </div>
 
-        <div className="w-full md:w-1/2 mt-8 md:mt-0">
+        <div className="w-3/4 m-auto md:w-1/2 mt-8 md:mt-0">
       <Swiper
         modules={[EffectCards, Navigation, Pagination]}
         effect="cards"
         grabCursor={true}
-        // navigation
-        // pagination={{ clickable: true }}
-        className="w-full h-[400px]"
+        className="w-full h-fit"
       >
         {images.map((image, index) => (
           <SwiperSlide key={index} className="flex justify-center items-center">

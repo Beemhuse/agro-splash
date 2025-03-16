@@ -59,23 +59,31 @@ const ProductDetailsModal = ({ product, isOpen, onClose }: ProductDetailsModalPr
   };
 
   const handleToggleFavourite = async () => {
-    const isFavourited = await isProductFavourited(product._id, userId.id);
+    if (!userId) {
+      toast.error('You need to be logged in to add favorites');
+      return;
+    }
+  
+    const isFavourited = await isProductFavourited(product._id, userId?.id);
     if (isFavourited) {
-      await removeFavourite(product._id, userId.id);
+      await removeFavourite(product._id, userId?.id);
       toast.success('Removed from Favourites');
+      setIsFavourite(false);
     } else {
-      await addFavourite(product._id, userId.id);
+      await addFavourite(product._id, userId?.id);
       toast.success('Added to Favourites');
+      setIsFavourite(true);
     }
   };
+  
 
   useEffect(() => {
     async function isFavProd() {
-      const favt = await isProductFavourited(product._id, userId.id);
+      const favt = await isProductFavourited(product._id, userId?.id);
       setIsFavourite(favt);
     }
     isFavProd();
-  }, [product._id, userId.id]);
+  }, [product._id, userId?.id]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>

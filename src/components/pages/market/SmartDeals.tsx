@@ -16,7 +16,6 @@ const SmartDeals: React.FC<SmartDealsProps> = ({
   products,
   selectedCategory,
 }) => {
-  //   const addToCart = useCartStore((state) => state.addToCart);
   const { isOpen, openModal, closeModal } = useModal();
   const [modalData, setModalData] = useState<IProduct | null>(null);
 

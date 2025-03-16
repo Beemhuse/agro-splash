@@ -41,7 +41,7 @@ const CategoriesMenu = ({ categories, onCategorySelect }: CategoriesMenuProps) =
   const categoriesWithAll = [{ name: "All", subCategories: [] }, ...categories];
 
   return (
-    <div className="flex h-full w-full items-center justify-center hide-scrollbar gap-4 py-4 px-6 bg-white shadow rounded-lg mb-20">
+    <div className="flex h-full w-full items-center overflow-auto justify-center hide-scrollbar gap-4 py-4 px-6 bg-white shadow rounded-lg mb-20">
       {categoriesWithAll?.map((category) => (
         <div key={category.name} className="relative max-w-full">
           <button

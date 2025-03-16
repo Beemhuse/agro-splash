@@ -59,12 +59,12 @@ const ProductCard = ({ product, handleOpenModal }: IProps) => {
           loading='lazy'
           className="h-full w-full object-cover"
         />
-        <span className="absolute top-0 cursor-pointer right-2 text-lg  text-black bg-white shadow-md rounded-full h-8 w-8 flex items-center justify-center  font-medium px-2 py-1">
+        <span className="absolute top-2 cursor-pointer right-2 text-lg  text-black bg-white shadow-md rounded-full h-8 w-8 flex items-center justify-center  font-medium px-2 py-1">
           <FaRegHeart />
         </span>
         <span 
     onClick={()=>push(`market-place/${slug.current}`)}
-    className="absolute top-10 right-2 cursor-pointer text-lg  text-black bg-white shadow-md rounded-full h-8 w-8 flex items-center justify-center  font-medium px-2 py-1">
+    className="absolute top-12 right-2 cursor-pointer text-lg  text-black bg-white shadow-md rounded-full h-8 w-8 flex items-center justify-center  font-medium px-2 py-1">
           <IoEyeOutline />
         </span>
       </div>
